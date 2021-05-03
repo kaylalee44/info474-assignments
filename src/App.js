@@ -1,27 +1,283 @@
 import React from "react";
+import { useFetch } from "./hooks/useFetch";
+import { scaleLinear } from "d3-scale";
+import { extent, max, min, bin } from "d3-array";
+import { scale } from "vega";
+import * as d3 from "d3";
+import { useEffect } from "react";
 
-const viewHeight = 500;
-const viewWidth = 500;
-
+// https://observablehq.com/@jermspeaks/async-await
 
 const App = () => {
-    return (
-        <svg 
-            style={{border: "1px solid lightgrey", width: viewWidth,
-            height: viewHeight}}
+  const [data, loading] = useFetch(
+    "https://raw.githubusercontent.com/kaylalee44/info474/main/weather.csv"
+  );
+
+  const dataSmallSample = data.slice(0, 5000);
+
+  const TMAXextent = extent(dataSmallSample, (d) => {
+    return +d.TMAX;
+  });
+
+  const size = 500;
+  const margin = 20;
+  const axisTextAlignmentFactor = 3;
+  const yScale = scaleLinear()
+    .domain(TMAXextent) // unit: km
+    .range([size - margin, size - 350]); // unit: pixels
+
+  _bins = bin().thresholds(30);
+  tmaxBins = _bins(
+    data.map((d) => {
+      return +d.TMAX;
+    })
+  );
+
+  const histogramLeftPadding = 20;
+
+  /*
+    binning https://observablehq.com/@d3/d3-bin  
+    geo https://observablehq.com/@d3/world-airports?collection=@d3/d3-geo https://github.com/d3/d3-geo
+    auto axes / ticks https://observablehq.com/@uwdata/scales-axes-and-legends?collection=@uwdata/visualization-curriculum
+    means https://danfo.jsdata.org/
+    line graph with d3 https://observablehq.com/@d3/line-chart?collection=@d3/d3-shape https://github.com/d3/d3-shape 
+    dotplots 
+    ordinal data, legends
+    componetization 
+  */
+
+  {
+    /* <rect x={index * 11} y={size} width="10" height={bin.length} /> */
+  }
+
+  const createElevationAvgTempLineChart = async() => {
+    const margin = { top: 20, right: 20, bottom: 30, left: 50 },
+      width = 960 - margin.left - margin.right,
+      height = 550 - margin.top - margin.bottom;
+
+    const svg = d3
+      .select("#elevation-temp-line")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  
+    // data.forEach(function (d) {
+    //   d.elevation = +d.elevation;
+    //   d.TAVG = +d.TAVG;
+    // });
+  
+    const xScale = scaleLinear() //elevation
+      .domain([0, max(dataSmallSample, function (d) { return d.elevation; })])
+      .range([0, width])
+    svg.append("g")
+      .attr("transform", `translate(0, ${height})`)
+      .call(d3.axisBottom(xScale));
+    const yScale = scaleLinear() //avg temp
+      .domain([0, max(dataSmallSample, function (d) { return d.TAVG; })]) 
+      .range([height, 0]);
+    svg.append("g")
+      .call(d3.axisLeft(yScale));
+    
+    const valueline = d3.line()
+      .x(function (d) {
+        return xScale(d.elevation);
+      })
+      .y(function (d) {
+        return yScale(d.TAVG);
+      });
+  
+    svg.append("path") // add the line
+      .datum(dataSmallSample)
+      .attr("fill", "none")
+      .attr("stroke", "black")
+      .attr("stroke-width", 1.5)
+      .attr("d", valueline);
+  };
+
+  useEffect(() => {
+    createElevationAvgTempLineChart();
+  }, []);
+
+  return (
+    <div>
+      <h1>Exploratory Data Analysis, Assignment 2, INFO 474 SP 2021</h1>
+      <p>{loading && "Loading data!"}</p>
+
+      <h3>Elevation vs. Average Temperature</h3>
+      <div id="elevation-temp-line"></div>
+
+      <h3> Binning </h3>
+      <svg width={size} height={size} style={{ border: "1px solid black" }}>
+        {tmaxBins.map((bin, i) => {
+          return (
+            <rect
+              y={size - 50 - bin.length}
+              width="10"
+              height={bin.length}
+              x={histogramLeftPadding + i * 11}
+            />
+          );
+        })}
+      </svg>
+
+      <h3>Temperatures</h3>
+      <svg width={size} height={size} style={{ border: "1px solid black" }}>
+        <text
+          x={size / 2 - 12}
+          y={yScale(0) + axisTextAlignmentFactor}
+          textAnchor="end"
+          style={{ fontSize: 10, fontFamily: "Gill Sans, sans serif" }}
         >
-            <circle cx={20} cy={20} r="5" />
-            <rect x={200} y={200} width={10} height={10} fill="rgb(230, 230, 230)"/>
-            <rect x={212} y={200} width={10} height={10} fill="rgb(230, 230, 230)"/>
-            <rect x={224} y={200} width={10} height={10} fill="rgb(230, 230, 230)"/>
-            <rect x={236} y={200} width={10} height={10} fill="rgb(230, 230, 230)"/>
-            <rect x={248} y={200} width={10} height={10} />
-            <line x1={20} y1={viewHeight - 20} x2={150} y2={100} stroke="black" />
-            <text x="20" y="35">
-                Price history of 100 randomly selected Pokemon cards
-            </text>
-        </svg>
-    ); // outer brace = js / inner brace = object
+          0
+        </text>
+        <text
+          x={size / 2 - 12}
+          y={yScale(100) + axisTextAlignmentFactor}
+          textAnchor="end"
+          style={{ fontSize: 10, fontFamily: "Gill Sans, sans serif" }}
+        >
+          100
+        </text>
+        <line
+          x1={size / 2 - 10}
+          y1={yScale(100)}
+          x2={size / 2 - 5}
+          y2={yScale(100)}
+          stroke={"black"}
+        />
+        <line
+          x1={size / 2 - 10}
+          y1={yScale(0)}
+          x2={size / 2 - 5}
+          y2={yScale(0)}
+          stroke={"black"}
+        />
+
+        {dataSmallSample.map((measurement, index) => {
+          const highlight = measurement.station === "KALISPELL GLACIER AP";
+          return (
+            <line
+              key={index}
+              x1={size / 2}
+              y1={yScale(measurement.TMAX)}
+              x2={size / 2 + 20}
+              y2={yScale(measurement.TMAX)}
+              stroke={highlight ? "red" : "steelblue"}
+              strokeOpacity={highlight ? 1 : 0.1}
+            />
+          );
+        })}
+      </svg>
+
+      <h3>Scatterplot</h3>
+      <svg width={size} height={size} style={{ border: "1px solid black" }}>
+        {dataSmallSample.map((measurement, index) => {
+          const highlight = measurement.station === "KALISPELL GLACIER AP";
+          return (
+            <circle
+              key={index}
+              cx={100 - measurement.TMIN}
+              cy={size - margin - measurement.TMAX}
+              r="3"
+              fill="none"
+              stroke={highlight ? "red" : "steelblue"}
+              strokeOpacity="0.2"
+            />
+          );
+        })}
+      </svg>
+      <h3>
+
+        Barcode plot TMAX at Kalispell Glacier (sounds cold, expect it to be
+        lower than average)
+      </h3>
+      <svg width={size} height={size} style={{ border: "1px solid black" }}>
+        <text
+          x={size / 2 - 12}
+          textAnchor="end"
+          y={size - margin + axisTextAlignmentFactor}
+          style={{ fontSize: 10, fontFamily: "Gill Sans, sans serif" }}
+        >
+          0
+        </text>
+        <text
+          x={size / 2 - 12}
+          textAnchor="end"
+          y={size - margin - 100 + axisTextAlignmentFactor}
+          style={{ fontSize: 10, fontFamily: "Gill Sans, sans serif" }}
+        >
+          100
+        </text>
+        <line
+          x1={size / 2 - 10}
+          y1={size - margin - 100}
+          x2={size / 2 - 5}
+          y2={size - margin - 100}
+          stroke={"black"}
+        />
+        <line
+          x1={size / 2 - 10}
+          y1={size - margin}
+          x2={size / 2 - 5}
+          y2={size - margin}
+          stroke={"black"}
+        />
+
+        {data.slice(0, 1000).map((measurement, index) => {
+          const highlight = measurement.station === "KALISPELL GLACIER AP";
+          return (
+            <line
+              key={index}
+              x1={size / 2}
+              y1={size - margin - measurement.TMAX}
+              x2={size / 2 + 20}
+              y2={size - margin - measurement.TMAX}
+              stroke={highlight ? "red" : "steelblue"}
+              strokeOpacity={highlight ? 1 : 0.1}
+            />
+          );
+        })}
+      </svg>
+      <h3>
+        TMAX at Kalispell Glacier (sounds cold, expect it to be lower than
+        average)
+      </h3>
+      <svg width={size} height={size} style={{ border: "1px solid black" }}>
+        {data.slice(0, 300).map((measurement, index) => {
+          const highlight = measurement.station === "KALISPELL GLACIER AP";
+          return (
+            <circle
+              key={index}
+              cx={highlight ? size / 2 : size / 2 - 20}
+              cy={size - margin - measurement.TMAX}
+              r="3"
+              fill="none"
+              stroke={highlight ? "red" : "steelblue"}
+              strokeOpacity="0.2"
+            />
+          );
+        })}
+      </svg>
+      <h3>Rendering circles :) this shows a distribution of TMAX</h3>
+      <svg width={size} height={size} style={{ border: "1px solid black" }}>
+        {data.slice(0, 300).map((measurement, index) => {
+          return (
+            <circle
+              key={index}
+              cx={size / 2}
+              cy={size - margin - measurement.TMAX}
+              r="3"
+              fill="none"
+              stroke={"steelblue"}
+              strokeOpacity="0.2"
+            />
+          );
+        })}
+      </svg>
+    </div>
+  );
 };
 
 export default App;

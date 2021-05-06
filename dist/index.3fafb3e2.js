@@ -26284,7 +26284,7 @@ try {
     _s();
     const [data, loading] = _hooksUseFetch.useFetch("https://raw.githubusercontent.com/kaylalee44/info474-assignments/main/weather.csv");
     const dataSmallSample = data.slice(0, 5000);
-    console.log(dataSmallSample);
+    // console.log(dataSmallSample);
     const TMAXextent = _d3Array.extent(dataSmallSample, d => {
       return +d.TMAX;
     });
@@ -26312,15 +26312,22 @@ try {
     {      // Elevation vs. Avg temperature
 }
     // Elevation vs. Avg temperature
-    const [elevationTempData, elevationTempLoading] = _hooksUseFetch.useFetch("https://raw.githubusercontent.com/kaylalee44/info474-assignments/main/data/elevation_avgtemp.csv");
+    const [elevationTempData, elevationTempLoading] = _hooksUseFetch.useFetch("https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/elevation_avgtemp.csv");
     const createElevationAvgTempLineChart = () => {
       const margin = {
         top: 20,
         right: 20,
         bottom: 30,
         left: 50
-      }, width = 960 - margin.left - margin.right, height = 550 - margin.top - margin.bottom;
-      const svg = _d.select("#elevation-temp-line").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+      }, // size
+      width = 1500 - margin.left - margin.right, height = 550 - margin.top - margin.bottom;
+      const svg = _d.// create the svg box for the viz
+      select("#elevation-temp-line").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+      elevationTempData.forEach(function (d) {
+        // parse values to int so that d3 can process them
+        d.elevation = +d.elevation;
+        d.TAVG = +d.TAVG;
+      });
       const xScale = _d3Scale.scaleLinear().// elevation
       domain([0, _d3Array.max(elevationTempData, function (d) {
         return d.elevation;
@@ -26331,40 +26338,49 @@ try {
         return d.TAVG;
       })]).nice().range([height, 0]);
       svg.append("g").call(_d.axisLeft(yScale));
-      const valueline = _d.line().x(function (d) {
+      const valueline = _d.line().// create the line
+      x(function (d) {
         return xScale(d.elevation);
       }).y(function (d) {
         return yScale(d.TAVG);
       });
-      svg.append("path").// add the line
+      svg.append("path").// add the line to svg
       datum(elevationTempData).attr("fill", "none").attr("stroke", "black").attr("stroke-width", 1.5).attr("d", valueline);
     };
     // Month vs. Precipitation
+    const [monthPrecipData, monthPrecipLoading] = _hooksUseFetch.useFetch("https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/elevation_avgtemp.csv");
     const createMonthPrecipitationLineChart = () => {
       const margin = {
         top: 20,
         right: 20,
         bottom: 30,
         left: 50
-      }, width = 960 - margin.left - margin.right, height = 550 - margin.top - margin.bottom;
-      const svg = _d.select("#month-precip-line").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+      }, // size
+      width = 1500 - margin.left - margin.right, height = 550 - margin.top - margin.bottom;
+      const svg = _d.// create the svg box for the viz
+      select("#month-precip-line").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+      monthPrecipData.forEach(function (d) {
+        // parse values to int so that d3 can process them
+        d.PRCP = +d.PRCP;
+      });
       const xScale = _d3Scale.scaleTime().// month
-      domain(_d3Array.extent(dataSmallSample, function (d) {
-        return d.date;
-      })).range([0, width]);
+      domain([0, _d3Array.max(monthPrecipData, function (d) {
+        return d.month;
+      })]).nice().range([0, width]);
       svg.append("g").attr("transform", `translate(0, ${height})`).call(_d.axisBottom(xScale));
       const yScale = _d3Scale.scaleLinear().// precipitation
-      domain([0, _d3Array.max(dataSmallSample, function (d) {
+      domain([0, _d3Array.max(monthPrecipData, function (d) {
         return d.PRCP;
       })]).nice().range([height, 0]);
       svg.append("g").call(_d.axisLeft(yScale));
-      const valueline = _d.line().x(function (d) {
-        return xScale(d.date);
+      const valueline = _d.line().// create the line
+      x(function (d) {
+        return xScale(d.month);
       }).y(function (d) {
         return yScale(d.PRCP);
       });
-      svg.append("path").// add the line
-      datum(dataSmallSample).attr("fill", "none").attr("stroke", "black").attr("stroke-width", 1.5).attr("d", valueline);
+      svg.append("path").// add the line to svg
+      datum(monthPrecipData).attr("fill", "none").attr("stroke", "black").attr("stroke-width", 1.5).attr("d", valueline);
     };
     _react.useEffect(() => {
       createElevationAvgTempLineChart();
@@ -26375,28 +26391,28 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 147,
+          lineNumber: 161,
           columnNumber: 5
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("h1", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 148,
+          lineNumber: 162,
           columnNumber: 7
         }
       }, "Exploratory Data Analysis, Assignment 2, INFO 474 SP 2021"), /*#__PURE__*/_reactDefault.default.createElement("p", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 149,
+          lineNumber: 164,
           columnNumber: 7
         }
-      }, loading && "Loading data!"), /*#__PURE__*/_reactDefault.default.createElement("h3", {
+      }, elevationTempLoading && "Loading elevation & average temp data!"), /*#__PURE__*/_reactDefault.default.createElement("h3", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 151,
+          lineNumber: 165,
           columnNumber: 7
         }
       }, "Elevation vs. Average Temperature"), /*#__PURE__*/_reactDefault.default.createElement("script", {
@@ -26404,7 +26420,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 152,
+          lineNumber: 166,
           columnNumber: 7
         }
       }), /*#__PURE__*/_reactDefault.default.createElement("div", {
@@ -26412,14 +26428,21 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 153,
+          lineNumber: 167,
           columnNumber: 7
         }
-      }), /*#__PURE__*/_reactDefault.default.createElement("h3", {
+      }), /*#__PURE__*/_reactDefault.default.createElement("p", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 155,
+          lineNumber: 170,
+          columnNumber: 7
+        }
+      }, monthPrecipData && "Loading month & precipitation data!"), /*#__PURE__*/_reactDefault.default.createElement("h3", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 171,
           columnNumber: 7
         }
       }, "Month vs. Precipitation"), /*#__PURE__*/_reactDefault.default.createElement("div", {
@@ -26427,14 +26450,21 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 156,
+          lineNumber: 172,
           columnNumber: 7
         }
-      }), /*#__PURE__*/_reactDefault.default.createElement("h3", {
+      }), /*#__PURE__*/_reactDefault.default.createElement("p", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 158,
+          lineNumber: 174,
+          columnNumber: 7
+        }
+      }, loading && "Loading weather data!"), /*#__PURE__*/_reactDefault.default.createElement("h3", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 175,
           columnNumber: 7
         }
       }, " Binning "), /*#__PURE__*/_reactDefault.default.createElement("svg", {
@@ -26446,7 +26476,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 159,
+          lineNumber: 176,
           columnNumber: 7
         }
       }, tmaxBins.map((bin, i) => {
@@ -26459,7 +26489,7 @@ try {
             __self: undefined,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 162,
+              lineNumber: 179,
               columnNumber: 13
             }
           })
@@ -26468,7 +26498,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 172,
+          lineNumber: 189,
           columnNumber: 7
         }
       }, "Temperatures"), /*#__PURE__*/_reactDefault.default.createElement("svg", {
@@ -26480,7 +26510,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 173,
+          lineNumber: 190,
           columnNumber: 7
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("text", {
@@ -26494,7 +26524,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 174,
+          lineNumber: 191,
           columnNumber: 9
         }
       }, "0"), /*#__PURE__*/_reactDefault.default.createElement("text", {
@@ -26508,7 +26538,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 182,
+          lineNumber: 199,
           columnNumber: 9
         }
       }, "100"), /*#__PURE__*/_reactDefault.default.createElement("line", {
@@ -26520,7 +26550,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 190,
+          lineNumber: 207,
           columnNumber: 9
         }
       }), /*#__PURE__*/_reactDefault.default.createElement("line", {
@@ -26532,7 +26562,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 197,
+          lineNumber: 214,
           columnNumber: 9
         }
       }), dataSmallSample.map((measurement, index) => {
@@ -26549,7 +26579,7 @@ try {
             __self: undefined,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 208,
+              lineNumber: 225,
               columnNumber: 13
             }
           })
@@ -26558,7 +26588,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 221,
+          lineNumber: 238,
           columnNumber: 7
         }
       }, "Scatterplot"), /*#__PURE__*/_reactDefault.default.createElement("svg", {
@@ -26570,7 +26600,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 222,
+          lineNumber: 239,
           columnNumber: 7
         }
       }, dataSmallSample.map((measurement, index) => {
@@ -26587,7 +26617,7 @@ try {
             __self: undefined,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 226,
+              lineNumber: 243,
               columnNumber: 13
             }
           })
@@ -26596,7 +26626,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 238,
+          lineNumber: 255,
           columnNumber: 7
         }
       }, "Barcode plot TMAX at Kalispell Glacier (sounds cold, expect it to be lower than average)"), /*#__PURE__*/_reactDefault.default.createElement("svg", {
@@ -26608,7 +26638,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 243,
+          lineNumber: 260,
           columnNumber: 7
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("text", {
@@ -26622,7 +26652,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 244,
+          lineNumber: 261,
           columnNumber: 9
         }
       }, "0"), /*#__PURE__*/_reactDefault.default.createElement("text", {
@@ -26636,7 +26666,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 252,
+          lineNumber: 269,
           columnNumber: 9
         }
       }, "100"), /*#__PURE__*/_reactDefault.default.createElement("line", {
@@ -26648,7 +26678,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 260,
+          lineNumber: 277,
           columnNumber: 9
         }
       }), /*#__PURE__*/_reactDefault.default.createElement("line", {
@@ -26660,7 +26690,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 267,
+          lineNumber: 284,
           columnNumber: 9
         }
       }), data.slice(0, 1000).map((measurement, index) => {
@@ -26677,7 +26707,7 @@ try {
             __self: undefined,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 278,
+              lineNumber: 295,
               columnNumber: 13
             }
           })
@@ -26686,7 +26716,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 290,
+          lineNumber: 307,
           columnNumber: 7
         }
       }, "TMAX at Kalispell Glacier (sounds cold, expect it to be lower than average)"), /*#__PURE__*/_reactDefault.default.createElement("svg", {
@@ -26698,7 +26728,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 294,
+          lineNumber: 311,
           columnNumber: 7
         }
       }, data.slice(0, 300).map((measurement, index) => {
@@ -26715,7 +26745,7 @@ try {
             __self: undefined,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 298,
+              lineNumber: 315,
               columnNumber: 13
             }
           })
@@ -26724,7 +26754,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 310,
+          lineNumber: 327,
           columnNumber: 7
         }
       }, "Rendering circles :) this shows a distribution of TMAX"), /*#__PURE__*/_reactDefault.default.createElement("svg", {
@@ -26736,7 +26766,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 311,
+          lineNumber: 328,
           columnNumber: 7
         }
       }, data.slice(0, 300).map((measurement, index) => {
@@ -26752,7 +26782,7 @@ try {
             __self: undefined,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 314,
+              lineNumber: 331,
               columnNumber: 13
             }
           })
@@ -26760,8 +26790,8 @@ try {
       })))
     );
   };
-  _s(App, "6Zbt+AymGCoXg81JJkRhVDSbAHY=", false, function () {
-    return [_hooksUseFetch.useFetch, _hooksUseFetch.useFetch];
+  _s(App, "Dl2qS3vBtVGu2wNNlb0vjRhX77c=", false, function () {
+    return [_hooksUseFetch.useFetch, _hooksUseFetch.useFetch, _hooksUseFetch.useFetch];
   });
   _c = App;
   exports.default = App;

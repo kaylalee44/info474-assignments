@@ -1,10 +1,9 @@
 import React from "react";
 import { useFetch } from "./hooks/useFetch";
-import { scaleLinear, scaleBand, scaleTime } from "d3-scale";
-import { extent, max, min, bin } from "d3-array";
-import { scale } from "vega";
-import * as d3 from "d3";
-import { useEffect } from "react";
+import { scaleLinear } from "d3-scale";
+import { extent, bin } from "d3-array";
+import ElevationTAVG from "./ElevationTAVG";
+import MonthPrecip from "./MonthPrecip";
 
 // https://observablehq.com/@jermspeaks/async-await
 
@@ -14,7 +13,6 @@ const App = () => {
   );
 
   const dataSmallSample = data.slice(0, 5000);
-  // console.log(dataSmallSample);
 
   const TMAXextent = extent(dataSmallSample, (d) => {
     return +d.TMAX;
@@ -36,141 +34,11 @@ const App = () => {
 
   const histogramLeftPadding = 20;
 
-  /*
-    binning https://observablehq.com/@d3/d3-bin  
-    geo https://observablehq.com/@d3/world-airports?collection=@d3/d3-geo https://github.com/d3/d3-geo
-    auto axes / ticks https://observablehq.com/@uwdata/scales-axes-and-legends?collection=@uwdata/visualization-curriculum
-    means https://danfo.jsdata.org/
-    line graph with d3 https://observablehq.com/@d3/line-chart?collection=@d3/d3-shape https://github.com/d3/d3-shape 
-    dotplots 
-    ordinal data, legends
-    componetization 
-  */
-
-  {
-    /* <rect x={index * 11} y={size} width="10" height={bin.length} /> */
-  }
-
-  // Elevation vs. Avg temperature
-  const [elevationTempData, elevationTempLoading] = useFetch(
-    "https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/elevation_avgtemp.csv"
-  );
-  const createElevationAvgTempLineChart = () => {
-    const margin = { top: 20, right: 20, bottom: 30, left: 50 }, //size
-      width = 1500 - margin.left - margin.right,
-      height = 550 - margin.top - margin.bottom;
-
-    const svg = d3 // create the svg box for the viz
-      .select("#elevation-temp-line")
-      .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", `translate(${margin.left}, ${margin.top})`);
-  
-
-    elevationTempData.forEach(function (d) { //parse values to int so that d3 can process them
-      d.elevation = +d.elevation;
-      d.TAVG = +d.TAVG;
-    });
-    const xScale = scaleLinear() //elevation
-      .domain([0, max(elevationTempData, function (d) { return d.elevation; })]).nice()
-      .range([0, width])
-    svg.append("g")
-      .attr("transform", `translate(0, ${height})`)
-      .call(d3.axisBottom(xScale));
-
-    const yScale = scaleLinear() //avg temp
-      .domain([0, max(elevationTempData, function (d) { return d.TAVG; })]).nice()
-      .range([height, 0]);
-    svg.append("g")
-      .call(d3.axisLeft(yScale));
-    
-    const valueline = d3.line() //create the line
-      .x(function (d) {
-        return xScale(d.elevation);
-      })
-      .y(function (d) {
-        return yScale(d.TAVG);
-      });
-  
-    svg.append("path") // add the line to svg
-      .datum(elevationTempData)
-      .attr("fill", "none")
-      .attr("stroke", "black")
-      .attr("stroke-width", 1.5)
-      .attr("d", valueline);
-  };
-
-  // Month vs. Precipitation
-  const [monthPrecipData, monthPrecipLoading] = useFetch(
-    "https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/month_precip.csv"
-  );
-  const createMonthPrecipitationLineChart = () => {
-    const margin = { top: 20, right: 20, bottom: 30, left: 50 }, //size
-      width = 1500 - margin.left - margin.right,
-      height = 550 - margin.top - margin.bottom;
-
-    const svg = d3 // create the svg box for the viz
-      .select("#month-precip-line")
-      .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", `translate(${margin.left}, ${margin.top})`);
-  
-
-    monthPrecipData.forEach(function (d) { //parse values to int so that d3 can process them
-      d.PRCP = +d.PRCP;
-    });
-    const xScale = scaleBand()
-      .rangeRound([0, width]).padding(1)
-      .domain(monthPrecipData.map(function(d) { return d.month; }));
-    svg.append("g")
-      .attr("transform", `translate(0, ${height})`)
-      .call(d3.axisBottom(xScale));
-
-    const yScale = scaleLinear() //precipitation
-      .domain([0, max(monthPrecipData, function (d) { return d.PRCP; })]).nice()
-      .range([height, 0]);
-    svg.append("g")
-      .call(d3.axisLeft(yScale));
-    
-    const valueline = d3.line() //create the line
-      .x(function (d) {
-        return xScale(d.month);
-      })
-      .y(function (d) {
-        return yScale(d.PRCP);
-      });
-  
-    svg.append("path") // add the line to svg
-      .datum(monthPrecipData)
-      .attr("fill", "none")
-      .attr("stroke", "black")
-      .attr("stroke-width", 1.5)
-      .attr("d", valueline);
-  };
-
-  useEffect(() => {
-    createElevationAvgTempLineChart();
-    createMonthPrecipitationLineChart();
-  }, []);
-
   return (
     <div>
       <h1>Exploratory Data Analysis, Assignment 2, INFO 474 SP 2021</h1>
-
-      <p>{elevationTempLoading && "Loading elevation & average temp data!"}</p>
-      <h3>Elevation vs. Average Temperature</h3>
-      <script src="https://d3js.org/d3.v4.js"></script>
-      <div id="elevation-temp-line" ></div>
-      {/* <script>{createElevationAvgTempLineChart()}</script> */}
-      {console.log("render")}
-
-      <p>{monthPrecipLoading && "Loading month & precipitation data!"}</p>
-      <h3>Month vs. Precipitation</h3>
-      <div id="month-precip-line"></div>
+      <ElevationTAVG />
+      <MonthPrecip />
 
       <p>{loading && "Loading weather data!"}</p>
       <h3> Binning </h3>

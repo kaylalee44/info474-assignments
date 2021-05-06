@@ -10,7 +10,7 @@ import { useEffect } from "react";
 
 const App = () => {
   const [data, loading] = useFetch(
-    "https://raw.githubusercontent.com/kaylalee44/info474/main/weather.csv"
+    "https://raw.githubusercontent.com/kaylalee44/info474-assignments/main/weather.csv"
   );
 
   const dataSmallSample = data.slice(0, 5000);
@@ -50,63 +50,10 @@ const App = () => {
     /* <rect x={index * 11} y={size} width="10" height={bin.length} /> */
   }
 
-  const createElevationAvgTempLineChart = async() => {
-    const margin = { top: 20, right: 20, bottom: 30, left: 50 },
-      width = 960 - margin.left - margin.right,
-      height = 550 - margin.top - margin.bottom;
-
-    const svg = d3
-      .select("#elevation-temp-line")
-      .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", `translate(${margin.left}, ${margin.top})`);
-  
-    // data.forEach(function (d) {
-    //   d.elevation = +d.elevation;
-    //   d.TAVG = +d.TAVG;
-    // });
-  
-    const xScale = scaleLinear() //elevation
-      .domain([0, max(dataSmallSample, function (d) { return d.elevation; })])
-      .range([0, width])
-    svg.append("g")
-      .attr("transform", `translate(0, ${height})`)
-      .call(d3.axisBottom(xScale));
-    const yScale = scaleLinear() //avg temp
-      .domain([0, max(dataSmallSample, function (d) { return d.TAVG; })]) 
-      .range([height, 0]);
-    svg.append("g")
-      .call(d3.axisLeft(yScale));
-    
-    const valueline = d3.line()
-      .x(function (d) {
-        return xScale(d.elevation);
-      })
-      .y(function (d) {
-        return yScale(d.TAVG);
-      });
-  
-    svg.append("path") // add the line
-      .datum(dataSmallSample)
-      .attr("fill", "none")
-      .attr("stroke", "black")
-      .attr("stroke-width", 1.5)
-      .attr("d", valueline);
-  };
-
-  useEffect(() => {
-    createElevationAvgTempLineChart();
-  }, []);
-
   return (
     <div>
       <h1>Exploratory Data Analysis, Assignment 2, INFO 474 SP 2021</h1>
       <p>{loading && "Loading data!"}</p>
-
-      <h3>Elevation vs. Average Temperature</h3>
-      <div id="elevation-temp-line"></div>
 
       <h3> Binning </h3>
       <svg width={size} height={size} style={{ border: "1px solid black" }}>

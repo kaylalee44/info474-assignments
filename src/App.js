@@ -1,6 +1,6 @@
 import React from "react";
 import { useFetch } from "./hooks/useFetch";
-import { scaleLinear, scaleTime } from "d3-scale";
+import { scaleLinear, scaleBand, scaleTime } from "d3-scale";
 import { extent, max, min, bin } from "d3-array";
 import { scale } from "vega";
 import * as d3 from "d3";
@@ -104,7 +104,7 @@ const App = () => {
 
   // Month vs. Precipitation
   const [monthPrecipData, monthPrecipLoading] = useFetch(
-    "https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/elevation_avgtemp.csv"
+    "https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/month_precip.csv"
   );
   const createMonthPrecipitationLineChart = () => {
     const margin = { top: 20, right: 20, bottom: 30, left: 50 }, //size
@@ -123,9 +123,9 @@ const App = () => {
     monthPrecipData.forEach(function (d) { //parse values to int so that d3 can process them
       d.PRCP = +d.PRCP;
     });
-    const xScale = scaleTime() //month
-      .domain([0, max(monthPrecipData, function (d) { return d.month; })]).nice()
-      .range([0, width])
+    const xScale = scaleBand()
+      .rangeRound([0, width]).padding(1)
+      .domain(monthPrecipData.map(function(d) { return d.month; }));
     svg.append("g")
       .attr("transform", `translate(0, ${height})`)
       .call(d3.axisBottom(xScale));
@@ -164,10 +164,11 @@ const App = () => {
       <p>{elevationTempLoading && "Loading elevation & average temp data!"}</p>
       <h3>Elevation vs. Average Temperature</h3>
       <script src="https://d3js.org/d3.v4.js"></script>
-      <div id="elevation-temp-line"></div>
+      <div id="elevation-temp-line" ></div>
       {/* <script>{createElevationAvgTempLineChart()}</script> */}
+      {console.log("render")}
 
-      <p>{monthPrecipData && "Loading month & precipitation data!"}</p>
+      <p>{monthPrecipLoading && "Loading month & precipitation data!"}</p>
       <h3>Month vs. Precipitation</h3>
       <div id="month-precip-line"></div>
 

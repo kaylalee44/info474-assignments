@@ -26272,402 +26272,503 @@ try {
   _parcelHelpers.defineInteropFlag(exports);
   var _react = require("react");
   var _reactDefault = _parcelHelpers.interopDefault(_react);
-  var _hooksUseFetch = require("./hooks/useFetch");
-  var _d3Scale = require("d3-scale");
-  var _d3Array = require("d3-array");
-  var _ElevationTAVG = require("./ElevationTAVG");
-  var _ElevationTAVGDefault = _parcelHelpers.interopDefault(_ElevationTAVG);
-  var _MonthPrecip = require("./MonthPrecip");
-  var _MonthPrecipDefault = _parcelHelpers.interopDefault(_MonthPrecip);
-  var _jsxFileName = "C:\\Users\\Kayla\\Documents\\School\\4th_Year\\INFO_474\\info474-assignments\\src\\App.js", _s = $RefreshSig$();
+  var _visualizationsElevationTAVG = require("./visualizations/ElevationTAVG");
+  var _visualizationsElevationTAVGDefault = _parcelHelpers.interopDefault(_visualizationsElevationTAVG);
+  var _visualizationsMonthPrecip = require("./visualizations/MonthPrecip");
+  var _visualizationsMonthPrecipDefault = _parcelHelpers.interopDefault(_visualizationsMonthPrecip);
+  var _visualizationsStateTAVG = require("./visualizations/StateTAVG");
+  var _visualizationsStateTAVGDefault = _parcelHelpers.interopDefault(_visualizationsStateTAVG);
+  var _visualizationsStateCount = require("./visualizations/StateCount");
+  var _visualizationsStateCountDefault = _parcelHelpers.interopDefault(_visualizationsStateCount);
+  var _visualizationsAWNDBarplot = require("./visualizations/AWNDBarplot");
+  var _visualizationsAWNDBarplotDefault = _parcelHelpers.interopDefault(_visualizationsAWNDBarplot);
+  var _visualizationsStateAWND = require("./visualizations/StateAWND");
+  var _visualizationsStateAWNDDefault = _parcelHelpers.interopDefault(_visualizationsStateAWND);
+  var _visualizationsMonthSnow = require("./visualizations/MonthSnow");
+  var _visualizationsMonthSnowDefault = _parcelHelpers.interopDefault(_visualizationsMonthSnow);
+  var _jsxFileName = "C:\\Users\\Kayla\\Documents\\School\\4th_Year\\INFO_474\\info474-assignments\\src\\App.js";
   // https://observablehq.com/@jermspeaks/async-await
   const App = () => {
-    _s();
-    const [data, loading] = _hooksUseFetch.useFetch("https://raw.githubusercontent.com/kaylalee44/info474-assignments/main/weather.csv");
-    const dataSmallSample = data.slice(0, 5000);
-    const TMAXextent = _d3Array.extent(dataSmallSample, d => {
-      return +d.TMAX;
-    });
-    const size = 500;
-    const margin = 20;
-    const axisTextAlignmentFactor = 3;
-    const yScale = _d3Scale.scaleLinear().domain(TMAXextent).// unit: km
-    range([size - margin, size - 350]);
-    // unit: pixels
-    _bins = _d3Array.bin().thresholds(30);
-    tmaxBins = _bins(data.map(d => {
-      return +d.TMAX;
-    }));
-    const histogramLeftPadding = 20;
     return (
       /*#__PURE__*/_reactDefault.default.createElement("div", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 38,
+          lineNumber: 14,
           columnNumber: 5
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("h1", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
+          lineNumber: 15,
+          columnNumber: 7
+        }
+      }, "Exploratory Data Analysis, Assignment 2, INFO 474 SP 2021"), /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 16,
+          columnNumber: 7
+        }
+      }, "The data set that I decided to use is the “Daily Weather in the U.S., 2017” CSV file. First look at this data, it contains:"), /*#__PURE__*/_reactDefault.default.createElement("ul", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 19,
+          columnNumber: 7
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 20,
+          columnNumber: 9
+        }
+      }, "Station"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 21,
+          columnNumber: 9
+        }
+      }, "State"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 22,
+          columnNumber: 9
+        }
+      }, "Latitude"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 23,
+          columnNumber: 9
+        }
+      }, "Longitude"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 24,
+          columnNumber: 9
+        }
+      }, "Elevation"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 25,
+          columnNumber: 9
+        }
+      }, "Date"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 26,
+          columnNumber: 9
+        }
+      }, "PRCP = Precipitation (inch)"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 27,
+          columnNumber: 9
+        }
+      }, "SNOW = Snowfall (inch)"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 28,
+          columnNumber: 9
+        }
+      }, "SNWD = Snow depth (inch)"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 29,
+          columnNumber: 9
+        }
+      }, "TMAX = Maximum temperature (F)"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 30,
+          columnNumber: 9
+        }
+      }, "TMIN = Minimum temperature (F)"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 31,
+          columnNumber: 9
+        }
+      }, "TAVG = Average temperature (F)"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 32,
+          columnNumber: 9
+        }
+      }, "AWND = Average daily wind speed (miles / hour)"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 33,
+          columnNumber: 9
+        }
+      }, "WSF5 = Fastest 5-second wind speed (miles / hour)"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 34,
+          columnNumber: 9
+        }
+      }, "WDF5 = Direction of fastest 5-second wind (degrees)")), /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 36,
+          columnNumber: 7
+        }
+      }, "To conduct initial exploratory analysis, I used what we did in lecture to look at the distribution of max temperature as a barcode plot. I also used Python to look at the summary statistics of the data like the averages, medians, etc. Then, I utilized Tableau to conduct further exploratory analysis since I was more familiar with it and could create more visualizations quicker.  The questions that I initially thought of just by looking at the data were:"), /*#__PURE__*/_reactDefault.default.createElement("ul", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
           lineNumber: 39,
           columnNumber: 7
         }
-      }, "Exploratory Data Analysis, Assignment 2, INFO 474 SP 2021"), /*#__PURE__*/_reactDefault.default.createElement(_ElevationTAVGDefault.default, {
+      }, /*#__PURE__*/_reactDefault.default.createElement("li", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 40,
-          columnNumber: 7
+          columnNumber: 9
         }
-      }), /*#__PURE__*/_reactDefault.default.createElement(_MonthPrecipDefault.default, {
+      }, "How does elevation affect the weather (rain, snow, temperature)?"), /*#__PURE__*/_reactDefault.default.createElement("li", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 41,
-          columnNumber: 7
+          columnNumber: 9
         }
-      }), /*#__PURE__*/_reactDefault.default.createElement("p", {
+      }, "Which month does it rain / snow the most? What month is the hottest?"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 42,
+          columnNumber: 9
+        }
+      }, "How does wind speed affect rain / snowfall / temperature?"), /*#__PURE__*/_reactDefault.default.createElement("li", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 43,
-          columnNumber: 7
+          columnNumber: 9
         }
-      }, loading && "Loading weather data!"), /*#__PURE__*/_reactDefault.default.createElement("h3", {
-        __self: undefined,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 44,
-          columnNumber: 7
-        }
-      }, " Binning "), /*#__PURE__*/_reactDefault.default.createElement("svg", {
-        width: size,
-        height: size,
-        style: {
-          border: "1px solid black"
-        },
+      }, "Which state has the most snowfall / rainfall? What is the hottest / coldest state?")), /*#__PURE__*/_reactDefault.default.createElement("p", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 45,
           columnNumber: 7
         }
-      }, tmaxBins.map((bin, i) => {
-        return (
-          /*#__PURE__*/_reactDefault.default.createElement("rect", {
-            y: size - 50 - bin.length,
-            width: "10",
-            height: bin.length,
-            x: histogramLeftPadding + i * 11,
-            __self: undefined,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 48,
-              columnNumber: 13
-            }
-          })
-        );
-      })), /*#__PURE__*/_reactDefault.default.createElement("h3", {
+      }, "With these questions, I created visualizations in Tableau to begin my investigation. As I was creating the visualizations and looking at the data, two other questions came to mind:"), /*#__PURE__*/_reactDefault.default.createElement("ul", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 48,
+          columnNumber: 7
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 49,
+          columnNumber: 9
+        }
+      }, "How does the wind speed compare for the hottest and least hot state?"), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 50,
+          columnNumber: 9
+        }
+      }, "How does snowfall compare to snow depth in different states for different months?")), /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 52,
+          columnNumber: 7
+        }
+      }, "After creating my visualizations in Tableau, I began thinking of which visualizations I wanted to create in JavaScript and how to translate them from Tableau to JavaScript. After looking through my visualizations, I decided to create a line graph for elevation vs. average temperature, a line graph for month vs. precipitation, a bar graph of average temperature by state to find out what the hottest and coldest states are, a bar graph of the count of the states to make sure there was an understanding of where most of the weather data was coming from, a barcode plot of average wind speed with the hottest and coldest state’s wind speed highlighted, a bar graph of wind speed vs. state that has different shades by average temperature, and a dual line graph of snowfall vs. snow depth vs. month. I chose to create these particular visualizations from my questions since I thought they were the most interesting and appeared to be somewhat related to each other."), /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 55,
+          columnNumber: 7
+        }
+      }, "Going through the process for each of my visualizations:"), /*#__PURE__*/_reactDefault.default.createElement("ul", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 56,
+          columnNumber: 7
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 57,
+          columnNumber: 9
+        }
+      }, "Line Graph: Elevation vs. Average Temperature", /*#__PURE__*/_reactDefault.default.createElement("ul", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 58,
-          columnNumber: 7
+          columnNumber: 11
         }
-      }, "Temperatures"), /*#__PURE__*/_reactDefault.default.createElement("svg", {
-        width: size,
-        height: size,
-        style: {
-          border: "1px solid black"
-        },
+      }, /*#__PURE__*/_reactDefault.default.createElement("li", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 59,
-          columnNumber: 7
+          columnNumber: 13
         }
-      }, /*#__PURE__*/_reactDefault.default.createElement("text", {
-        x: size / 2 - 12,
-        y: yScale(0) + axisTextAlignmentFactor,
-        textAnchor: "end",
-        style: {
-          fontSize: 10,
-          fontFamily: "Gill Sans, sans serif"
-        },
+      }, "Creating this visualization, I had to look up how to create a line graph using d3, and found that there is a d3 graph gallery that provides starter code on how to create a basic line graph. I used this code as a template and was able to create a line graph using the weather data. However, when I first created the line graph the lines seemed to be connected to many different data points, which made the graph completely unreadable and dense. To fix this, I had to figure out how to order the data … had to cut down the amount of data…"))), /*#__PURE__*/_reactDefault.default.createElement("li", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 60,
+          lineNumber: 62,
           columnNumber: 9
         }
-      }, "0"), /*#__PURE__*/_reactDefault.default.createElement("text", {
-        x: size / 2 - 12,
-        y: yScale(100) + axisTextAlignmentFactor,
-        textAnchor: "end",
-        style: {
-          fontSize: 10,
-          fontFamily: "Gill Sans, sans serif"
-        },
+      }, "Line Graph: Month vs. Precipitation", /*#__PURE__*/_reactDefault.default.createElement("ul", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 63,
+          columnNumber: 11
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 64,
+          columnNumber: 13
+        }
+      }, "Since I already created a line graph for the elevation and average temperature, I was able to use that code and just replace the data with the month and precipitation. The main difference was the date scale since I had to pull out the month from the dates using d3’s timeParse and then used scaleTime to put the months on the x scale."))), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 67,
+          columnNumber: 9
+        }
+      }, "Bar Graph: State vs. Average Temperature w/ Highlight on Hottest and Coldest State", /*#__PURE__*/_reactDefault.default.createElement("ul", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 68,
-          columnNumber: 9
+          columnNumber: 11
         }
-      }, "100"), /*#__PURE__*/_reactDefault.default.createElement("line", {
-        x1: size / 2 - 10,
-        y1: yScale(100),
-        x2: size / 2 - 5,
-        y2: yScale(100),
-        stroke: "black",
+      }, /*#__PURE__*/_reactDefault.default.createElement("li", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 76,
+          lineNumber: 69,
+          columnNumber: 13
+        }
+      }, "Creating this visualization, I utilized the binning that we did in lecture and also information from the Internet. To show the highlight, I made the hottest and coldest states a darker shade to make it stand out."))), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 72,
           columnNumber: 9
         }
-      }), /*#__PURE__*/_reactDefault.default.createElement("line", {
-        x1: size / 2 - 10,
-        y1: yScale(0),
-        x2: size / 2 - 5,
-        y2: yScale(0),
-        stroke: "black",
+      }, "Bar Graph: Count of States", /*#__PURE__*/_reactDefault.default.createElement("ul", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 73,
+          columnNumber: 11
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 74,
+          columnNumber: 13
+        }
+      }, "I used the same method as the state and average temperature bar graph to create this one, except I had to create a new column of data for the count of states."))), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 77,
+          columnNumber: 9
+        }
+      }, "Barcode Plot: Average Wind Speed w/ Highlight on Hottest and Coldest State’s Average Wind Speed", /*#__PURE__*/_reactDefault.default.createElement("ul", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 78,
+          columnNumber: 11
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 79,
+          columnNumber: 13
+        }
+      }, "To create this visualization, I used the bar code plot code we did in class as a template to create this visualization. To highlight the hottest and coldest state’s average wind speed, I had to pull out that data and create separate barcode plots for them. I then put them next to the average wind speed plot to highlight and compare them."))), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 82,
+          columnNumber: 9
+        }
+      }, "Bar Graph: State vs. Average Wind Speed and Colored by Average Temperature", /*#__PURE__*/_reactDefault.default.createElement("ul", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 83,
+          columnNumber: 11
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 84,
+          columnNumber: 13
+        }
+      }, "I used my bar graph code as a template to create the graph, and then had to look up how to color the graphs by average temperature."))), /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 87,
           columnNumber: 9
         }
-      }), dataSmallSample.map((measurement, index) => {
-        const highlight = measurement.station === "KALISPELL GLACIER AP";
-        return (
-          /*#__PURE__*/_reactDefault.default.createElement("line", {
-            key: index,
-            x1: size / 2,
-            y1: yScale(measurement.TMAX),
-            x2: size / 2 + 20,
-            y2: yScale(measurement.TMAX),
-            stroke: highlight ? "red" : "steelblue",
-            strokeOpacity: highlight ? 1 : 0.1,
-            __self: undefined,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 94,
-              columnNumber: 13
-            }
-          })
-        );
-      })), /*#__PURE__*/_reactDefault.default.createElement("h3", {
+      }, "Dual Line Graph: Month vs. Snowfall and Snow Depth", /*#__PURE__*/_reactDefault.default.createElement("ul", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 88,
+          columnNumber: 11
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("li", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 89,
+          columnNumber: 13
+        }
+      }, "Creating this graph, I had to look up how to do this and found starter code from d3’s API.")))), /*#__PURE__*/_reactDefault.default.createElement(_visualizationsElevationTAVGDefault.default, {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 94,
+          columnNumber: 7
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement(_visualizationsMonthPrecipDefault.default, {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 95,
+          columnNumber: 7
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement(_visualizationsStateTAVGDefault.default, {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 96,
+          columnNumber: 7
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement(_visualizationsStateCountDefault.default, {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 97,
+          columnNumber: 7
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement(_visualizationsAWNDBarplotDefault.default, {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 98,
+          columnNumber: 7
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement(_visualizationsStateAWNDDefault.default, {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 99,
+          columnNumber: 7
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement(_visualizationsMonthSnowDefault.default, {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 100,
+          columnNumber: 7
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("h2", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 102,
+          columnNumber: 7
+        }
+      }, "Main Lessons Learned:"), /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 103,
+          columnNumber: 7
+        }
+      }, "One of the main lessons I learned from analyzing this data, is that it’s important to understand the tools that you are using to create the visualizations. With an understanding, you are able to better manipulate the data and create polished graphics. Through this assignment, I was able to learn and gain experience with using d3 and vega in JavaScript. I’ve never created visualizations in JavaScript before, so this was a bit of a learning curve for me. It was initially difficult for me to even create a basic line graph, but by reading through the APIs and getting help from the Internet, I was able to create a graph using the weather data. Another lesson I learned was that it’s important to have clean data and transform your data before attempting to create any visualization. This makes the process much easier and smoother. Additionally, one more lesson I learned was how important initial investigation is. It’s important because through the process, you encounter interesting statistics and comparisons, which leads to more complex questions."), /*#__PURE__*/_reactDefault.default.createElement("h2", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 105,
+          columnNumber: 7
+        }
+      }, "Feedback Given:"), /*#__PURE__*/_reactDefault.default.createElement("ul", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 106,
+          columnNumber: 7
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("li", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 107,
-          columnNumber: 7
+          columnNumber: 9
         }
-      }, "Scatterplot"), /*#__PURE__*/_reactDefault.default.createElement("svg", {
-        width: size,
-        height: size,
-        style: {
-          border: "1px solid black"
-        },
+      }, "Use different shades of the same color (different shades of grey)"), /*#__PURE__*/_reactDefault.default.createElement("li", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 108,
-          columnNumber: 7
-        }
-      }, dataSmallSample.map((measurement, index) => {
-        const highlight = measurement.station === "KALISPELL GLACIER AP";
-        return (
-          /*#__PURE__*/_reactDefault.default.createElement("circle", {
-            key: index,
-            cx: 100 - measurement.TMIN,
-            cy: size - margin - measurement.TMAX,
-            r: "3",
-            fill: "none",
-            stroke: highlight ? "red" : "steelblue",
-            strokeOpacity: "0.2",
-            __self: undefined,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 112,
-              columnNumber: 13
-            }
-          })
-        );
-      })), /*#__PURE__*/_reactDefault.default.createElement("h3", {
-        __self: undefined,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 124,
-          columnNumber: 7
-        }
-      }, "Barcode plot TMAX at Kalispell Glacier (sounds cold, expect it to be lower than average)"), /*#__PURE__*/_reactDefault.default.createElement("svg", {
-        width: size,
-        height: size,
-        style: {
-          border: "1px solid black"
-        },
-        __self: undefined,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 129,
-          columnNumber: 7
-        }
-      }, /*#__PURE__*/_reactDefault.default.createElement("text", {
-        x: size / 2 - 12,
-        textAnchor: "end",
-        y: size - margin + axisTextAlignmentFactor,
-        style: {
-          fontSize: 10,
-          fontFamily: "Gill Sans, sans serif"
-        },
-        __self: undefined,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 130,
           columnNumber: 9
         }
-      }, "0"), /*#__PURE__*/_reactDefault.default.createElement("text", {
-        x: size / 2 - 12,
-        textAnchor: "end",
-        y: size - margin - 100 + axisTextAlignmentFactor,
-        style: {
-          fontSize: 10,
-          fontFamily: "Gill Sans, sans serif"
-        },
+      }, "Make the visualization bigger"), /*#__PURE__*/_reactDefault.default.createElement("li", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 138,
+          lineNumber: 109,
           columnNumber: 9
         }
-      }, "100"), /*#__PURE__*/_reactDefault.default.createElement("line", {
-        x1: size / 2 - 10,
-        y1: size - margin - 100,
-        x2: size / 2 - 5,
-        y2: size - margin - 100,
-        stroke: "black",
+      }, "Change the shape of points to indicate a different variable on the same graph"), /*#__PURE__*/_reactDefault.default.createElement("li", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 146,
+          lineNumber: 110,
           columnNumber: 9
         }
-      }), /*#__PURE__*/_reactDefault.default.createElement("line", {
-        x1: size / 2 - 10,
-        y1: size - margin,
-        x2: size / 2 - 5,
-        y2: size - margin,
-        stroke: "black",
-        __self: undefined,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 153,
-          columnNumber: 9
-        }
-      }), data.slice(0, 1000).map((measurement, index) => {
-        const highlight = measurement.station === "KALISPELL GLACIER AP";
-        return (
-          /*#__PURE__*/_reactDefault.default.createElement("line", {
-            key: index,
-            x1: size / 2,
-            y1: size - margin - measurement.TMAX,
-            x2: size / 2 + 20,
-            y2: size - margin - measurement.TMAX,
-            stroke: highlight ? "red" : "steelblue",
-            strokeOpacity: highlight ? 1 : 0.1,
-            __self: undefined,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 164,
-              columnNumber: 13
-            }
-          })
-        );
-      })), /*#__PURE__*/_reactDefault.default.createElement("h3", {
-        __self: undefined,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 176,
-          columnNumber: 7
-        }
-      }, "TMAX at Kalispell Glacier (sounds cold, expect it to be lower than average)"), /*#__PURE__*/_reactDefault.default.createElement("svg", {
-        width: size,
-        height: size,
-        style: {
-          border: "1px solid black"
-        },
-        __self: undefined,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 180,
-          columnNumber: 7
-        }
-      }, data.slice(0, 300).map((measurement, index) => {
-        const highlight = measurement.station === "KALISPELL GLACIER AP";
-        return (
-          /*#__PURE__*/_reactDefault.default.createElement("circle", {
-            key: index,
-            cx: highlight ? size / 2 : size / 2 - 20,
-            cy: size - margin - measurement.TMAX,
-            r: "3",
-            fill: "none",
-            stroke: highlight ? "red" : "steelblue",
-            strokeOpacity: "0.2",
-            __self: undefined,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 184,
-              columnNumber: 13
-            }
-          })
-        );
-      })), /*#__PURE__*/_reactDefault.default.createElement("h3", {
-        __self: undefined,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 196,
-          columnNumber: 7
-        }
-      }, "Rendering circles :) this shows a distribution of TMAX"), /*#__PURE__*/_reactDefault.default.createElement("svg", {
-        width: size,
-        height: size,
-        style: {
-          border: "1px solid black"
-        },
-        __self: undefined,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 197,
-          columnNumber: 7
-        }
-      }, data.slice(0, 300).map((measurement, index) => {
-        return (
-          /*#__PURE__*/_reactDefault.default.createElement("circle", {
-            key: index,
-            cx: size / 2,
-            cy: size - margin - measurement.TMAX,
-            r: "3",
-            fill: "none",
-            stroke: "steelblue",
-            strokeOpacity: "0.2",
-            __self: undefined,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 200,
-              columnNumber: 13
-            }
-          })
-        );
-      })))
+      }, "Add labels to x and y + a title")))
     );
   };
-  _s(App, "Jm65JCcgUFoenM4DufkEA80vRVI=", false, function () {
-    return [_hooksUseFetch.useFetch];
-  });
   _c = App;
   exports.default = App;
   var _c;
@@ -26678,7 +26779,117 @@ try {
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"react":"3b2NM","./hooks/useFetch":"5YU3r","d3-scale":"2UZ4X","d3-array":"7CLUA","./ElevationTAVG":"40pHa","./MonthPrecip":"616MD","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"5YU3r":[function(require,module,exports) {
+},{"react":"3b2NM","./visualizations/ElevationTAVG":"1uWc6","./visualizations/MonthPrecip":"7FWXC","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f","./visualizations/StateTAVG":"2qwx1","./visualizations/StateCount":"UTKM1","./visualizations/StateAWND":"6DBtM","./visualizations/MonthSnow":"6QL58","./visualizations/AWNDBarplot":"6O6UX"}],"1uWc6":[function(require,module,exports) {
+var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require("react");
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  var _hooksUseFetch = require("../hooks/useFetch");
+  var _d3Scale = require("d3-scale");
+  var _d3Array = require("d3-array");
+  var _d = require("d3");
+  var _jsxFileName = "C:\\Users\\Kayla\\Documents\\School\\4th_Year\\INFO_474\\info474-assignments\\src\\visualizations\\ElevationTAVG.js", _s = $RefreshSig$();
+  function ElevationTAVG() {
+    _s();
+    const [data, loading] = _hooksUseFetch.useFetch("https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/elevation_avgtemp.csv");
+    if (loading === true) {
+      const margin = {
+        top: 20,
+        right: 20,
+        bottom: 40,
+        left: 60
+      }, // size
+      width = 1000 - margin.left - margin.right, height = 500 - margin.top - margin.bottom;
+      const svg = _d.// create the svg box for the viz
+      select("#elevation-temp-line").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+      data.forEach(function (d) {
+        // parse values to int so that d3 can process them
+        d.elevation = +d.elevation;
+        d.TAVG = +d.TAVG;
+      });
+      const xScale = _d3Scale.scaleLinear().// elevation
+      domain([0, _d3Array.max(data, function (d) {
+        return d.elevation;
+      })]).nice().range([0, width]);
+      svg.append("g").attr("transform", `translate(0, ${height})`).call(_d.axisBottom(xScale));
+      const yScale = _d3Scale.scaleLinear().// avg temp
+      domain([0, _d3Array.max(data, function (d) {
+        return d.TAVG;
+      })]).nice().range([height, 0]);
+      svg.append("g").call(_d.axisLeft(yScale));
+      const valueline = _d.line().// create the line
+      x(function (d) {
+        return xScale(d.elevation);
+      }).y(function (d) {
+        return yScale(d.TAVG);
+      });
+      svg.append("path").// add the line to svg
+      datum(data).attr("fill", "none").attr("stroke", "black").attr("stroke-width", 1.5).attr("d", valueline);
+      // x-axis lable
+      svg.append("text").attr("x", width / 2).attr("y", height + margin.bottom).attr('fill', '#000').style('font-size', '20px').style('text-anchor', 'middle').text('Elevation');
+      // y-axis lable
+      svg.append("text").attr("x", 0).attr("y", 0).attr('transform', `translate(-40, ${height / 2}) rotate(-90)`).attr('fill', '#000').style('font-size', '20px').style('text-anchor', 'middle').text('Average Temperature (F)');
+    }
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement("div", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 79,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 80,
+          columnNumber: 13
+        }
+      }, loading && "Loading elevation & average temp data!"), /*#__PURE__*/_reactDefault.default.createElement("h3", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 81,
+          columnNumber: 13
+        }
+      }, "Elevation vs. Average Temperature"), /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 82,
+          columnNumber: 13
+        }
+      }, "It appears that when the elevation is around 0-200 m, the data there is very dense. Additionally, around 2400 m, appears to be the biggest spikes and where the average temperature is the highest. Between 200~1400, the data seems very sparse and the average temperature is low."), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        id: "elevation-temp-line",
+        className: "viz",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 83,
+          columnNumber: 13
+        }
+      }))
+    );
+  }
+  exports.default = ElevationTAVG;
+  _s(ElevationTAVG, "Jm65JCcgUFoenM4DufkEA80vRVI=", false, function () {
+    return [_hooksUseFetch.useFetch];
+  });
+  _c = ElevationTAVG;
+  var _c;
+  $RefreshReg$(_c, "ElevationTAVG");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+
+},{"react":"3b2NM","../hooks/useFetch":"5YU3r","d3-scale":"2UZ4X","d3-array":"7CLUA","d3":"3auhl","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"5YU3r":[function(require,module,exports) {
 var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -31214,103 +31425,7 @@ var define;
   });
 });
 
-},{"d3-time":"JGVPX"}],"40pHa":[function(require,module,exports) {
-var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-helpers.prelude(module);
-try {
-  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
-  _parcelHelpers.defineInteropFlag(exports);
-  var _react = require("react");
-  var _reactDefault = _parcelHelpers.interopDefault(_react);
-  var _hooksUseFetch = require("./hooks/useFetch");
-  var _d3Scale = require("d3-scale");
-  var _d3Array = require("d3-array");
-  var _d = require("d3");
-  var _jsxFileName = "C:\\Users\\Kayla\\Documents\\School\\4th_Year\\INFO_474\\info474-assignments\\src\\ElevationTAVG.js", _s = $RefreshSig$();
-  function ElevationTAVG() {
-    _s();
-    const [data, loading] = _hooksUseFetch.useFetch("https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/elevation_avgtemp.csv");
-    const margin = {
-      top: 20,
-      right: 20,
-      bottom: 30,
-      left: 50
-    }, // size
-    width = 1500 - margin.left - margin.right, height = 550 - margin.top - margin.bottom;
-    const svg = _d.// create the svg box for the viz
-    select("#elevation-temp-line").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
-    data.forEach(function (d) {
-      // parse values to int so that d3 can process them
-      d.elevation = +d.elevation;
-      d.TAVG = +d.TAVG;
-    });
-    const xScale = _d3Scale.scaleLinear().// elevation
-    domain([0, _d3Array.max(data, function (d) {
-      return d.elevation;
-    })]).nice().range([0, width]);
-    svg.append("g").attr("transform", `translate(0, ${height})`).call(_d.axisBottom(xScale));
-    const yScale = _d3Scale.scaleLinear().// avg temp
-    domain([0, _d3Array.max(data, function (d) {
-      return d.TAVG;
-    })]).nice().range([height, 0]);
-    svg.append("g").call(_d.axisLeft(yScale));
-    const valueline = _d.line().// create the line
-    x(function (d) {
-      return xScale(d.elevation);
-    }).y(function (d) {
-      return yScale(d.TAVG);
-    });
-    svg.append("path").// add the line to svg
-    datum(data).attr("fill", "none").attr("stroke", "black").attr("stroke-width", 1.5).attr("d", valueline);
-    return (
-      /*#__PURE__*/_reactDefault.default.createElement("div", {
-        __self: this,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 58,
-          columnNumber: 9
-        }
-      }, /*#__PURE__*/_reactDefault.default.createElement("p", {
-        __self: this,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 59,
-          columnNumber: 13
-        }
-      }, loading && "Loading elevation & average temp data!"), /*#__PURE__*/_reactDefault.default.createElement("h3", {
-        __self: this,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 60,
-          columnNumber: 13
-        }
-      }, "Elevation vs. Average Temperature"), /*#__PURE__*/_reactDefault.default.createElement("div", {
-        id: "elevation-temp-line",
-        __self: this,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 62,
-          columnNumber: 13
-        }
-      }))
-    );
-  }
-  exports.default = ElevationTAVG;
-  _s(ElevationTAVG, "Jm65JCcgUFoenM4DufkEA80vRVI=", false, function () {
-    return [_hooksUseFetch.useFetch];
-  });
-  _c = ElevationTAVG;
-  var _c;
-  $RefreshReg$(_c, "ElevationTAVG");
-  helpers.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-
-},{"react":"3b2NM","./hooks/useFetch":"5YU3r","d3-scale":"2UZ4X","d3-array":"7CLUA","d3":"3auhl","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"3auhl":[function(require,module,exports) {
+},{"d3-time":"JGVPX"}],"3auhl":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -42984,8 +43099,8 @@ var define;
   });
 });
 
-},{"d3-dispatch":"6ygE0","d3-drag":"5x5QZ","d3-interpolate":"6eByj","d3-selection":"1RFAz","d3-transition":"ee4oY"}],"616MD":[function(require,module,exports) {
-var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{"d3-dispatch":"6ygE0","d3-drag":"5x5QZ","d3-interpolate":"6eByj","d3-selection":"1RFAz","d3-transition":"ee4oY"}],"7FWXC":[function(require,module,exports) {
+var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
 helpers.prelude(module);
@@ -42994,72 +43109,86 @@ try {
   _parcelHelpers.defineInteropFlag(exports);
   var _react = require("react");
   var _reactDefault = _parcelHelpers.interopDefault(_react);
-  var _hooksUseFetch = require("./hooks/useFetch");
+  var _hooksUseFetch = require("../hooks/useFetch");
   var _d3Scale = require("d3-scale");
   var _d3Array = require("d3-array");
   var _d = require("d3");
-  var _jsxFileName = "C:\\Users\\Kayla\\Documents\\School\\4th_Year\\INFO_474\\info474-assignments\\src\\MonthPrecip.js", _s = $RefreshSig$();
+  var _jsxFileName = "C:\\Users\\Kayla\\Documents\\School\\4th_Year\\INFO_474\\info474-assignments\\src\\visualizations\\MonthPrecip.js", _s = $RefreshSig$();
   function MonthPrecip() {
     _s();
     const [data, loading] = _hooksUseFetch.useFetch("https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/month_precip.csv");
-    const margin = {
-      top: 20,
-      right: 20,
-      bottom: 30,
-      left: 50
-    }, // size
-    width = 1500 - margin.left - margin.right, height = 550 - margin.top - margin.bottom;
-    const svg = _d.// create the svg box for the viz
-    select("#month-precip-line").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
-    data.forEach(function (d) {
-      // parse values to int so that d3 can process them
-      d.PRCP = +d.PRCP;
-    });
-    const xScale = _d3Scale.scaleBand().rangeRound([0, width]).padding(1).domain(data.map(function (d) {
-      return d.month;
-    }));
-    svg.append("g").attr("transform", `translate(0, ${height})`).call(_d.axisBottom(xScale));
-    const yScale = _d3Scale.scaleLinear().// precipitation
-    domain([0, _d3Array.max(data, function (d) {
-      return d.PRCP;
-    })]).nice().range([height, 0]);
-    svg.append("g").call(_d.axisLeft(yScale));
-    const valueline = _d.line().// create the line
-    x(function (d) {
-      return xScale(d.month);
-    }).y(function (d) {
-      return yScale(d.PRCP);
-    });
-    svg.append("path").// add the line to svg
-    datum(data).attr("fill", "none").attr("stroke", "black").attr("stroke-width", 1.5).attr("d", valueline);
+    if (loading === true) {
+      const margin = {
+        top: 20,
+        right: 20,
+        bottom: 40,
+        left: 60
+      }, // size
+      width = 1000 - margin.left - margin.right, height = 500 - margin.top - margin.bottom;
+      const svg = _d.// create the svg box for the viz
+      select("#month-precip-line").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+      data.forEach(function (d) {
+        // parse values to int so that d3 can process them
+        d.PRCP = +d.PRCP;
+      });
+      const xScale = _d3Scale.scaleBand().rangeRound([0, width]).padding(1).domain(data.map(function (d) {
+        return d.month;
+      }));
+      svg.append("g").attr("transform", `translate(0, ${height})`).call(_d.axisBottom(xScale));
+      const yScale = _d3Scale.scaleLinear().// precipitation
+      domain([0, _d3Array.max(data, function (d) {
+        return d.PRCP;
+      })]).nice().range([height, 0]);
+      svg.append("g").call(_d.axisLeft(yScale));
+      const valueline = _d.line().// create the line
+      x(function (d) {
+        return xScale(d.month);
+      }).y(function (d) {
+        return yScale(d.PRCP);
+      });
+      svg.append("path").// add the line to svg
+      datum(data).attr("fill", "none").attr("stroke", "black").attr("stroke-width", 1.5).attr("d", valueline);
+      // x-axis lable
+      svg.append("text").attr("x", width / 2).attr("y", height + margin.bottom).attr('fill', '#000').style('font-size', '20px').style('text-anchor', 'middle').text('Month');
+      // y-axis lable
+      svg.append("text").attr("x", 0).attr("y", 0).attr('transform', `translate(-40, ${height / 2}) rotate(-90)`).attr('fill', '#000').style('font-size', '20px').style('text-anchor', 'middle').text('Precipitation (inch)');
+    }
     return (
       /*#__PURE__*/_reactDefault.default.createElement("div", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 57,
+          lineNumber: 78,
           columnNumber: 9
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("p", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 58,
+          lineNumber: 79,
           columnNumber: 13
         }
       }, loading && "Loading month & precipitation data!"), /*#__PURE__*/_reactDefault.default.createElement("h3", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 59,
+          lineNumber: 80,
           columnNumber: 13
         }
-      }, "Month vs. Precipitation"), /*#__PURE__*/_reactDefault.default.createElement("div", {
-        id: "month-precip-line",
+      }, "Month vs. Precipitation"), /*#__PURE__*/_reactDefault.default.createElement("p", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 60,
+          lineNumber: 81,
+          columnNumber: 13
+        }
+      }, "There is a clear decline in precipitation inches as the year progresses. This makes sense since January is the start of the year and still winter. As the year progresses, it begins to become warmer which may be why precipitation decreases. It is interesting though, that there appears to be a spike in August for some reason."), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        id: "month-precip-line",
+        className: "viz",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 82,
           columnNumber: 13
         }
       }))
@@ -43078,6 +43207,586 @@ try {
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"react":"3b2NM","./hooks/useFetch":"5YU3r","d3-scale":"2UZ4X","d3-array":"7CLUA","d3":"3auhl","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}]},["1j6wU","3Imd1","5rkFb"], "5rkFb", "parcelRequire2009")
+},{"react":"3b2NM","../hooks/useFetch":"5YU3r","d3-scale":"2UZ4X","d3-array":"7CLUA","d3":"3auhl","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"2qwx1":[function(require,module,exports) {
+var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require("react");
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  var _hooksUseFetch = require("../hooks/useFetch");
+  var _d3Scale = require("d3-scale");
+  var _d3Array = require("d3-array");
+  var _d = require("d3");
+  var _jsxFileName = "C:\\Users\\Kayla\\Documents\\School\\4th_Year\\INFO_474\\info474-assignments\\src\\visualizations\\StateTAVG.js", _s = $RefreshSig$();
+  function StateTAVG() {
+    _s();
+    const [data, loading] = _hooksUseFetch.useFetch("https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/state_tavg.csv");
+    if (loading === true) {
+      // the dimensions of our svg
+      const margin = {
+        top: 20,
+        right: 20,
+        bottom: 40,
+        left: 60
+      }, // size
+      width = 1000 - margin.left - margin.right, height = 500 - margin.top - margin.bottom;
+      // append the svg object to the body of the page
+      var svg = _d.select("#state_tavg_bar").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      data.forEach(function (d) {
+        // parse values to int so that d3 can process them
+        d.TAVG = +d.TAVG;
+      });
+      // sort data
+      data.sort(function (b, a) {
+        return a.TAVG - b.TAVG;
+      });
+      // X axis
+      var x = _d3Scale.scaleBand().range([0, width]).domain(data.map(function (d) {
+        return d.state;
+      })).padding(0.2);
+      svg.append("g").attr("transform", "translate(0," + height + ")").call(_d.axisBottom(x)).selectAll("text").attr("transform", "translate(-10,0)rotate(-45)").style("text-anchor", "end");
+      // Add Y axis
+      var y = _d3Scale.scaleLinear().domain([0, _d3Array.max(data, function (d) {
+        return d.TAVG;
+      })]).nice().range([height, 0]);
+      svg.append("g").call(_d.axisLeft(y));
+      // Bars
+      // const hottest = data.state === "GU";
+      // const coldest = data.state === "NT";
+      svg.selectAll("mybar").data(data).enter().append("rect").attr("x", function (d) {
+        return x(d.state);
+      }).attr("y", function (d) {
+        return y(d.TAVG);
+      }).attr("width", x.bandwidth()).attr("height", function (d) {
+        return height - y(d.TAVG);
+      }).attr("fill", "#000");
+      // x-axis lable
+      svg.append("text").attr("x", width / 2).attr("y", height + margin.bottom).attr('fill', '#000').style('font-size', '20px').style('text-anchor', 'middle').text('State');
+      // y-axis lable
+      svg.append("text").attr("x", 0).attr("y", 0).attr('transform', `translate(-40, ${height / 2}) rotate(-90)`).attr('fill', '#000').style('font-size', '20px').style('text-anchor', 'middle').text('Average Temperature (F)');
+    }
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement("div", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 90,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 91,
+          columnNumber: 13
+        }
+      }, loading && "Loading month & precipitation data!"), /*#__PURE__*/_reactDefault.default.createElement("h3", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 92,
+          columnNumber: 13
+        }
+      }, "State vs. Average Temperature"), /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 93,
+          columnNumber: 13
+        }
+      }, "The hottest state is GU and the coldest state is NT."), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        id: "state_tavg_bar",
+        className: "viz",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 94,
+          columnNumber: 13
+        }
+      }))
+    );
+  }
+  exports.default = StateTAVG;
+  _s(StateTAVG, "Jm65JCcgUFoenM4DufkEA80vRVI=", false, function () {
+    return [_hooksUseFetch.useFetch];
+  });
+  _c = StateTAVG;
+  var _c;
+  $RefreshReg$(_c, "StateTAVG");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+
+},{"react":"3b2NM","d3-scale":"2UZ4X","../hooks/useFetch":"5YU3r","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f","d3":"3auhl","d3-array":"7CLUA"}],"UTKM1":[function(require,module,exports) {
+var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require("react");
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  var _hooksUseFetch = require("../hooks/useFetch");
+  var _d3Scale = require("d3-scale");
+  var _d3Array = require("d3-array");
+  var _d = require("d3");
+  var _jsxFileName = "C:\\Users\\Kayla\\Documents\\School\\4th_Year\\INFO_474\\info474-assignments\\src\\visualizations\\StateCount.js", _s = $RefreshSig$();
+  function CountOfStates() {
+    _s();
+    const [data, loading] = _hooksUseFetch.useFetch("https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/state_count.csv");
+    if (loading === true) {
+      // the dimensions of our svg
+      const margin = {
+        top: 20,
+        right: 20,
+        bottom: 40,
+        left: 60
+      }, // size
+      width = 1000 - margin.left - margin.right, height = 500 - margin.top - margin.bottom;
+      // append the svg object to the body of the page
+      var svg = _d.select("#state_count_bar").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      data.forEach(function (d) {
+        // parse values to int so that d3 can process them
+        d.count = +d.count;
+      });
+      // sort data
+      data.sort(function (b, a) {
+        return a.count - b.count;
+      });
+      // X axis
+      var x = _d3Scale.scaleBand().range([0, width]).domain(data.map(function (d) {
+        return d.state;
+      })).padding(0.2);
+      svg.append("g").attr("transform", "translate(0," + height + ")").call(_d.axisBottom(x)).selectAll("text").attr("transform", "translate(-10,0)rotate(-45)").style("text-anchor", "end");
+      // Add Y axis
+      var y = _d3Scale.scaleLinear().domain([0, _d3Array.max(data, function (d) {
+        return d.count;
+      })]).nice().range([height, 0]);
+      svg.append("g").call(_d.axisLeft(y));
+      // Bars
+      svg.selectAll("mybar").data(data).enter().append("rect").attr("x", function (d) {
+        return x(d.state);
+      }).attr("y", function (d) {
+        return y(d.count);
+      }).attr("width", x.bandwidth()).attr("height", function (d) {
+        return height - y(d.count);
+      }).attr("fill", "#000");
+      // x-axis lable
+      svg.append("text").attr("x", width / 2).attr("y", height + margin.bottom).attr('fill', '#000').style('font-size', '20px').style('text-anchor', 'middle').text('State');
+      // y-axis lable
+      svg.append("text").attr("x", 0).attr("y", 0).attr('transform', `translate(-40, ${height / 2}) rotate(-90)`).attr('fill', '#000').style('font-size', '20px').style('text-anchor', 'middle').text('Count');
+    }
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement("div", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 88,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 89,
+          columnNumber: 13
+        }
+      }, loading && "Loading state count data!"), /*#__PURE__*/_reactDefault.default.createElement("h3", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 90,
+          columnNumber: 13
+        }
+      }, "Count of Data by State"), /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 91,
+          columnNumber: 13
+        }
+      }, "It appears that Utah has the highest count of data and MP has the lowest."), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        id: "state_count_bar",
+        className: "viz",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 92,
+          columnNumber: 13
+        }
+      }))
+    );
+  }
+  exports.default = CountOfStates;
+  _s(CountOfStates, "Jm65JCcgUFoenM4DufkEA80vRVI=", false, function () {
+    return [_hooksUseFetch.useFetch];
+  });
+  _c = CountOfStates;
+  var _c;
+  $RefreshReg$(_c, "CountOfStates");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+
+},{"react":"3b2NM","../hooks/useFetch":"5YU3r","d3-scale":"2UZ4X","d3-array":"7CLUA","d3":"3auhl","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"6DBtM":[function(require,module,exports) {
+var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require("react");
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  var _hooksUseFetch = require("../hooks/useFetch");
+  var _d3Scale = require("d3-scale");
+  var _d3Array = require("d3-array");
+  var _d = require("d3");
+  var _jsxFileName = "C:\\Users\\Kayla\\Documents\\School\\4th_Year\\INFO_474\\info474-assignments\\src\\visualizations\\StateAWND.js", _s = $RefreshSig$();
+  function StateAWNDBar() {
+    _s();
+    const [data, loading] = _hooksUseFetch.useFetch("https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/windspeed_state.csv");
+    if (loading === true) {
+      // the dimensions of our svg
+      const margin = {
+        top: 20,
+        right: 20,
+        bottom: 40,
+        left: 60
+      }, // size
+      width = 1000 - margin.left - margin.right, height = 500 - margin.top - margin.bottom;
+      // append the svg object to the body of the page
+      var svg = _d.select("#state_awnd_bar").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      data.forEach(function (d) {
+        // parse values to int so that d3 can process them
+        d.AWND = +d.AWND;
+      });
+      // X axis
+      var x = _d3Scale.scaleBand().range([0, width]).domain(data.map(function (d) {
+        return d.state;
+      })).padding(0.2);
+      svg.append("g").attr("transform", "translate(0," + height + ")").call(_d.axisBottom(x)).selectAll("text").attr("transform", "translate(-10,0)rotate(-45)").style("text-anchor", "end");
+      // Add Y axis
+      var y = _d3Scale.scaleLinear().domain([0, _d3Array.max(data, function (d) {
+        return d.AWND;
+      })]).nice().range([height, 0]);
+      svg.append("g").call(_d.axisLeft(y));
+      // Bars
+      svg.selectAll("mybar").data(data).enter().append("rect").attr("x", function (d) {
+        return x(d.state);
+      }).attr("y", function (d) {
+        return y(d.AWND);
+      }).attr("width", x.bandwidth()).attr("height", function (d) {
+        return height - y(d.AWND);
+      }).attr("fill", "#000");
+      // x-axis lable
+      svg.append("text").attr("x", width / 2).attr("y", height + margin.bottom).attr('fill', '#000').style('font-size', '20px').style('text-anchor', 'middle').text('State');
+      // y-axis lable
+      svg.append("text").attr("x", 0).attr("y", 0).attr('transform', `translate(-40, ${height / 2}) rotate(-90)`).attr('fill', '#000').style('font-size', '20px').style('text-anchor', 'middle').text('Average Daily Wind Speed (mi/hr)');
+    }
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement("div", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 83,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 84,
+          columnNumber: 13
+        }
+      }, loading && "Loading state & awnd data!"), /*#__PURE__*/_reactDefault.default.createElement("h3", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 85,
+          columnNumber: 13
+        }
+      }, "State vs. Average Wind Speed Colored by Average Temperature"), /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 86,
+          columnNumber: 13
+        }
+      }, "It appears that the highest average wind speed is in Texas and the second is California. "), /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 87,
+          columnNumber: 13
+        }
+      }, "The highest average temperature is Utah, but the average wind speed is pretty low. "), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        id: "state_awnd_bar",
+        className: "viz",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 88,
+          columnNumber: 13
+        }
+      }))
+    );
+  }
+  exports.default = StateAWNDBar;
+  _s(StateAWNDBar, "Jm65JCcgUFoenM4DufkEA80vRVI=", false, function () {
+    return [_hooksUseFetch.useFetch];
+  });
+  _c = StateAWNDBar;
+  var _c;
+  $RefreshReg$(_c, "StateAWNDBar");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+
+},{"react":"3b2NM","../hooks/useFetch":"5YU3r","d3-scale":"2UZ4X","d3-array":"7CLUA","d3":"3auhl","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"6QL58":[function(require,module,exports) {
+var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require("react");
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  var _hooksUseFetch = require("../hooks/useFetch");
+  var _d3Scale = require("d3-scale");
+  var _d3Array = require("d3-array");
+  var _d = require("d3");
+  var _jsxFileName = "C:\\Users\\Kayla\\Documents\\School\\4th_Year\\INFO_474\\info474-assignments\\src\\visualizations\\MonthSnow.js", _s = $RefreshSig$();
+  function MonthSnow() {
+    _s();
+    const [data, loading] = _hooksUseFetch.useFetch("https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/snow_snwd_month.csv");
+    if (loading === true) {
+      const margin = {
+        top: 20,
+        right: 20,
+        bottom: 40,
+        left: 60
+      }, // size
+      width = 1000 - margin.left - margin.right, height = 500 - margin.top - margin.bottom;
+      const svg = _d.// create the svg box for the viz
+      select("#month-snow-lines").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+      data.forEach(function (d) {
+        // parse values to int so that d3 can process them
+        d.SNOW = +d.SNOW;
+        d.SNWD = +d.SNWD;
+      });
+      const xScale = _d3Scale.scaleBand().rangeRound([0, width]).padding(1).domain(data.map(function (d) {
+        return d.month;
+      }));
+      svg.append("g").attr("transform", `translate(0, ${height})`).call(_d.axisBottom(xScale));
+      const yScale = _d3Scale.scaleLinear().domain([0, _d3Array.max(data, function (d) {
+        return d.SNOW;
+      })]).nice().range([height, 0]);
+      svg.append("g").call(_d.axisLeft(yScale));
+      const yScale2 = _d3Scale.scaleLinear().domain([0, _d3Array.max(data, function (d) {
+        return d.SNWD;
+      })]).nice().range([height, 0]);
+      svg.append("g").attr("transform", "translate(" + width + ",0)").call(_d.axisRight(yScale2));
+      const snowLine = _d.line().// create the line for snow
+      x(function (d) {
+        return xScale(d.month);
+      }).y(function (d) {
+        return yScale(d.SNOW);
+      });
+      const snwdLine = _d.line().// create the line for snwd
+      x(function (d) {
+        return xScale(d.month);
+      }).y(function (d) {
+        return yScale2(d.SNWD);
+      });
+      svg.append("path").// add the line to svg
+      datum(data).attr("fill", "none").attr("stroke", "black").attr("stroke-width", 1.5).attr("d", snowLine);
+      svg.append("path").// add the line to svg
+      datum(data).attr("fill", "none").attr("stroke", "red").attr("stroke-width", 1.5).attr("d", snwdLine);
+      // x-axis lable
+      svg.append("text").attr("x", width / 2).attr("y", height + margin.bottom).attr('fill', '#000').style('font-size', '20px').style('text-anchor', 'middle').text('Month');
+      // y-axis lable
+      svg.append("text").attr("x", 0).attr("y", 0).attr('transform', `translate(-40, ${height / 2}) rotate(-90)`).attr('fill', '#000').style('font-size', '20px').style('text-anchor', 'middle').text('Snowfall (inch)');
+      svg.append("text").attr("x", 0).attr("y", 0).attr('transform', `translate(40, ${height / 2}) rotate(90)`).attr('fill', '#000').style('font-size', '20px').style('text-anchor', 'middle').text('Snow Depth (inch)');
+    }
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement("div", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 110,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 111,
+          columnNumber: 13
+        }
+      }, loading && "Loading month & snow data!"), /*#__PURE__*/_reactDefault.default.createElement("h3", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 112,
+          columnNumber: 13
+        }
+      }, "Month vs. Snowfall and Snow Depth"), /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 113,
+          columnNumber: 13
+        }
+      }, "It appears that both the snowfall and depth decline as the months go by, which makes sense since the season is moving towards summer. It’s interesting how the greatest snowfall is in January but the snow depth in January is not the largest. As the snowfall declines, the snow depth increases until it hits March, where it then begins to decrease. This might be due to the snow not sticking or maybe just building up."), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        id: "month-snow-lines",
+        className: "viz",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 114,
+          columnNumber: 13
+        }
+      }))
+    );
+  }
+  exports.default = MonthSnow;
+  _s(MonthSnow, "Jm65JCcgUFoenM4DufkEA80vRVI=", false, function () {
+    return [_hooksUseFetch.useFetch];
+  });
+  _c = MonthSnow;
+  var _c;
+  $RefreshReg$(_c, "MonthSnow");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+
+},{"react":"3b2NM","../hooks/useFetch":"5YU3r","d3-scale":"2UZ4X","d3-array":"7CLUA","d3":"3auhl","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"6O6UX":[function(require,module,exports) {
+var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require("react");
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  var _hooksUseFetch = require("../hooks/useFetch");
+  var _d3Scale = require("d3-scale");
+  require("d3-array");
+  var _d = require("d3");
+  var _jsxFileName = "C:\\Users\\Kayla\\Documents\\School\\4th_Year\\INFO_474\\info474-assignments\\src\\visualizations\\AWNDBarplot.js", _s = $RefreshSig$();
+  function AWNDBarplot() {
+    _s();
+    const [data, loading] = _hooksUseFetch.useFetch("https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/windspeed_state.csv");
+    if (loading === true) {
+      var margin = {
+        top: 10,
+        right: 30,
+        bottom: 30,
+        left: 40
+      }, width = 400 - margin.left - margin.right, height = 400 - margin.top - margin.bottom;
+      const svg = _d.// create the svg box for the viz
+      select("#awnd_barplot").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+      let awnd = [];
+      data.forEach(function (d) {
+        // parse values to int so that d3 can process them
+        d.AWND = +d.AWND;
+        awnd.push(d.AWND);
+      });
+      var data1 = [12, 19, 11, 13, 12, 22, 13, 4, 15, 16, 18, 19, 20, 12, 11, 9];
+      // Compute summary statistics used for the box:
+      let data_sorted = awnd.sort(_d.ascending);
+      let q1 = _d.quantile(data_sorted, .25);
+      let median = _d.quantile(data_sorted, .5);
+      let q3 = _d.quantile(data_sorted, .75);
+      let interQuantileRange = q3 - q1;
+      let min = q1 - 1.5 * interQuantileRange;
+      let max1 = q1 + 1.5 * interQuantileRange;
+      // Show the Y scale
+      let y = _d3Scale.scaleLinear().domain([0, 12]).range([height, 0]);
+      svg.append("g").call(_d.axisLeft(y));
+      // a few features for the box
+      let center = 200;
+      // Show the main vertical line
+      svg.append("line").attr("x1", center).attr("x2", center).attr("y1", y(min)).attr("y2", y(max1)).attr("stroke", "black");
+      // Show the box
+      svg.append("rect").attr("x", center - 100 / 2).attr("y", y(q3)).attr("height", y(q1) - y(q3)).attr("width", 100).attr("stroke", "black").style("fill", "grey");
+      // show median, min and max horizontal lines
+      svg.selectAll("toto").data([min, median, max1]).enter().append("line").attr("x1", center - 100 / 2).attr("x2", center + 100 / 2).attr("y1", function (d) {
+        return y(d);
+      }).attr("y2", function (d) {
+        return y(d);
+      }).attr("stroke", "black");
+    }
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement("div", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 86,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 87,
+          columnNumber: 13
+        }
+      }, loading && "Loading average wind speed data!"), /*#__PURE__*/_reactDefault.default.createElement("h3", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 88,
+          columnNumber: 13
+        }
+      }, "Average Wind Speed"), /*#__PURE__*/_reactDefault.default.createElement("p", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 89,
+          columnNumber: 13
+        }
+      }, "PUT INSIGHT HERE"), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        id: "awnd_barplot",
+        className: "viz",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 90,
+          columnNumber: 13
+        }
+      }))
+    );
+  }
+  exports.default = AWNDBarplot;
+  _s(AWNDBarplot, "Jm65JCcgUFoenM4DufkEA80vRVI=", false, function () {
+    return [_hooksUseFetch.useFetch];
+  });
+  _c = AWNDBarplot;
+  var _c;
+  $RefreshReg$(_c, "AWNDBarplot");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+
+},{"react":"3b2NM","../hooks/useFetch":"5YU3r","d3-scale":"2UZ4X","d3-array":"7CLUA","d3":"3auhl","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}]},["1j6wU","3Imd1","5rkFb"], "5rkFb", "parcelRequire2009")
 
 //# sourceMappingURL=index.3fafb3e2.js.map

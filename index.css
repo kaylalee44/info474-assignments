@@ -1,0 +1,17 @@
+h1, h3 {
+    text-align: center;
+}
+
+h3 {
+    margin-top: 5em;
+}
+
+body {
+    margin: 0em 3em 0em 3em;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.viz {
+    text-align: center;
+    margin: 4em 0em 5em 0em;
+}

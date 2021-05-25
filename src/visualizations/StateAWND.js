@@ -4,7 +4,7 @@ import { scaleLinear, scaleBand } from "d3-scale";
 import { max } from "d3-array";
 import * as d3 from "d3";
 
-// State vs. Average Wind Speed & Colored by Average Temperature
+// State vs. Average Wind Speed
 export default function StateAWNDBar() {
     const [data, loading] = useFetch(
         "https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/windspeed_state.csv"
@@ -58,7 +58,12 @@ export default function StateAWNDBar() {
             .attr("y", function(d) { return y(d.AWND); })
             .attr("width", x.bandwidth())
             .attr("height", function(d) { return height - y(d.AWND); })
-            .attr("fill", "#000")
+            .attr("fill", function(d) {
+                if (d.state === "NM" || d.state === "CO") {
+                    return "red";
+                }
+                return "black";
+            })
 
         // x-axis lable
         svg.append("text")
@@ -82,9 +87,13 @@ export default function StateAWNDBar() {
     return (
         <div>
             <p>{loading && "Loading state & awnd data!"}</p>
-            <h3>State vs. Average Wind Speed Colored by Average Temperature</h3>
-            <p>It appears that the highest average wind speed is in Texas and the second is California. </p>
-            <p>The highest average temperature is Utah, but the average wind speed is pretty low. </p>
+            <h3>State vs. Average Wind Speed</h3>
+            <p>
+                It appears that the highest average wind speed is in New Mexico and the second is Colorado. 
+                These two state's wind speed is well above the mean wind speed according to the barplot above, and looking 
+                at the state vs. average temperature bar graph, New Mexico and Colorado have relatively low average temperatures in comparison 
+                to the other states. This might mean that higher wind speeds make temperatures lower.
+            </p>
             <div id="state_awnd_bar" className="viz"></div>
         </div>
     );

@@ -11,7 +11,7 @@ export default function MonthSnow() {
     );
 
     if (loading === true) {
-      const margin = { top: 20, right: 20, bottom: 40, left: 60 }, //size
+      const margin = { top: 20, right: 50, bottom: 40, left: 60 }, //size
         width = 1000 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
@@ -100,7 +100,7 @@ export default function MonthSnow() {
       svg.append("text")
         .attr("x", 0)
         .attr("y", 0)
-        .attr('transform', `translate(40, ${height/2}) rotate(90)`)
+        .attr('transform', `translate(` + (width + 35) + `, ${height/2}) rotate(90)`)
         .attr('fill', '#000')
         .style('font-size', '20px')
         .style('text-anchor', 'middle')
@@ -110,7 +110,11 @@ export default function MonthSnow() {
         <div>
             <p>{loading && "Loading month & snow data!"}</p>
             <h3>Month vs. Snowfall and Snow Depth</h3>
-            <p>It appears that both the snowfall and depth decline as the months go by, which makes sense since the season is moving towards summer. It’s interesting how the greatest snowfall is in January but the snow depth in January is not the largest. As the snowfall declines, the snow depth increases until it hits March, where it then begins to decrease. This might be due to the snow not sticking or maybe just building up.</p>
+            <p>
+              It appears that both the snowfall and depth decline as the months go by, which makes sense since the season 
+              is moving towards summer. It’s interesting how the greatest snowfall is in January but the snow depth in January 
+              is not the largest. As the snowfall declines, the snow depth increases until it hits March, where it then begins to decrease. 
+              This might be due to the snow not sticking or maybe just building up.</p>
             <div id="month-snow-lines" className="viz"></div>
         </div>
     );

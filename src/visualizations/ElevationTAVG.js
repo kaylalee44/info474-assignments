@@ -63,7 +63,7 @@ export default function ElevationTAVG() {
         .attr('fill', '#000')
         .style('font-size', '20px')
         .style('text-anchor', 'middle')
-        .text('Elevation');
+        .text('Elevation (m)');
 
         // y-axis lable
         svg.append("text")
@@ -79,7 +79,11 @@ export default function ElevationTAVG() {
         <div>
             <p>{loading && "Loading elevation & average temp data!"}</p>
             <h3>Elevation vs. Average Temperature</h3>
-            <p>It appears that when the elevation is around 0-200 m, the data there is very dense. Additionally, around 2400 m, appears to be the biggest spikes and where the average temperature is the highest. Between 200~1400, the data seems very sparse and the average temperature is low.</p>
+            <p>
+                It appears that when the elevation is around 0-1000 m, the data there is very dense and the average temperature is very high.
+                As the elevation increases, it seems that the average temperature begins to converge to around 40-50 degrees F. This is pretty interesting to me, 
+                because I would have assumed that the higher the elevation, the colder it is. However, according to this graph, that doesn't seem to be the case.
+            </p>
             <div id="elevation-temp-line" className="viz"></div>
         </div>
     );

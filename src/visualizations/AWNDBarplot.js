@@ -11,7 +11,7 @@ export default function AWNDBarplot() {
     );
 
     if (loading === true) {
-        var margin = {top: 10, right: 30, bottom: 30, left: 40},
+        var margin = {top: 10, right: 30, bottom: 30, left: 60},
             width = 400 - margin.left - margin.right,
             height = 400 - margin.top - margin.bottom;
 
@@ -81,12 +81,26 @@ export default function AWNDBarplot() {
             .attr("y1", function(d){ return(y(d))} )
             .attr("y2", function(d){ return(y(d))} )
             .attr("stroke", "black")
+
+        // // y-axis lable
+        // svg.append("text")
+        //     .attr("x", 0)
+        //     .attr("y", 0)
+        //     .attr('transform', `translate(-40, ${height/2}) rotate(-90)`)
+        //     .attr('fill', '#000')
+        //     .style('font-size', '20px')
+        //     .style('text-anchor', 'middle')
+        //     .text('Average Daily Wind Speed (mi/hr)');  
     }
     return (
         <div>
             <p>{loading && "Loading average wind speed data!"}</p>
-            <h3>Average Wind Speed</h3>
-            <p>PUT INSIGHT HERE</p>
+            <h3>Average Wind Speed (mi/hr)</h3>
+            <p>
+                Looking at this barplot, it appears that the mean average wind speed is around 7.5 mi/hr for all states. 
+                The max appears to be around 10 mi/hr and the min is around 3 mi/hr. This plot can help understand how wind speed 
+                affects other weathers.
+            </p>
             <div id="awnd_barplot" className="viz"></div>
         </div>
     );

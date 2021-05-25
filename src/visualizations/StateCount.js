@@ -88,7 +88,14 @@ export default function CountOfStates() {
         <div>
             <p>{loading && "Loading state count data!"}</p>
             <h3>Count of Data by State</h3>
-            <p>It appears that Utah has the highest count of data and MP has the lowest.</p>
+            <p>
+                It appears that Utah has the highest count of data and the Mariana Islands has the lowest.
+                Knowing what the data is mostly comprised of is important because this could be a factor in the reason why some of the 
+                graphs look the way they do. For example, looking at the above graph, Guam has the highest average temperature, but it 
+                is one of the lowest in terms of data. This means that Guam could potentially mean that on one day Guam may have just had a very 
+                hot day and there wasn't a lot of data to adjust the average temperature to what it actually is. However, this is just an example 
+                and unlikely since we know that Guam is actually a tropical and hot place.
+            </p>
             <div id="state_count_bar" className="viz"></div>
         </div>
     );

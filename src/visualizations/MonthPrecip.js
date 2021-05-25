@@ -78,7 +78,12 @@ export default function MonthPrecip() {
         <div>
             <p>{loading && "Loading month & precipitation data!"}</p>
             <h3>Month vs. Precipitation</h3>
-            <p>There is a clear decline in precipitation inches as the year progresses. This makes sense since January is the start of the year and still winter. As the year progresses, it begins to become warmer which may be why precipitation decreases. It is interesting though, that there appears to be a spike in August for some reason.</p>
+            <p>
+              There is a clear decline in precipitation inches as the year progresses. 
+              This makes sense since January is the start of the year and still winter. 
+              As the year progresses, it begins to become warmer which may be why precipitation decreases. 
+              It is interesting though, that there appears to be a spike in August and September for some reason. 
+              Although, this is likely due to the changing season into Fall.</p>
             <div id="month-precip-line" className="viz"></div>
         </div>
     );

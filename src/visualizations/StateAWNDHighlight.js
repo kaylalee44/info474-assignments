@@ -4,10 +4,10 @@ import { scaleLinear, scaleBand } from "d3-scale";
 import { max } from "d3-array";
 import * as d3 from "d3";
 
-// State vs. Average Temperature
-export default function StateTAVG() {
+// State vs. Average Wind Speed & Colored by Average Temperature
+export default function StateAWNDBarHighlight() {
     const [data, loading] = useFetch(
-        "https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/state_tavg.csv"
+        "https://raw.githubusercontent.com/kaylalee44/info474-assignments/a2/data/windspeed_state.csv"
     );
 
     if (loading === true) {
@@ -17,7 +17,7 @@ export default function StateTAVG() {
             height = 500 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
-        var svg = d3.select("#state_tavg_bar")
+        var svg = d3.select("#state_awnd_h_bar")
             .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -26,12 +26,7 @@ export default function StateTAVG() {
                 "translate(" + margin.left + "," + margin.top + ")");
 
         data.forEach(function (d) { //parse values to int so that d3 can process them
-            d.TAVG = +d.TAVG;
-        });
-
-        // sort data
-        data.sort(function(b, a) {
-            return a.TAVG - b.TAVG;
+            d.AWND = +d.AWND;
         });
 
         // X axis
@@ -49,24 +44,22 @@ export default function StateTAVG() {
 
         // Add Y axis
         var y = scaleLinear()
-            .domain([0, max(data, function (d) { return d.TAVG; })]).nice()
+            .domain([0, max(data, function (d) { return d.AWND; })]).nice()
             .range([ height, 0]);
         svg.append("g")
             .call(d3.axisLeft(y));
 
         // Bars
-        // const hottest = data.state === "GU";
-        // const coldest = data.state === "NT";
         svg.selectAll("mybar")
             .data(data)
             .enter()
             .append("rect")
             .attr("x", function(d) { return x(d.state); })
-            .attr("y", function(d) { return y(d.TAVG); })
+            .attr("y", function(d) { return y(d.AWND); })
             .attr("width", x.bandwidth())
-            .attr("height", function(d) { return height - y(d.TAVG); })
+            .attr("height", function(d) { return height - y(d.AWND); })
             .attr("fill", function(d) {
-                if (d.state === "GU" || d.state === "NT") {
+                if (d.state === "GU") { //highlight
                     return "red";
                 }
                 return "black";
@@ -89,17 +82,15 @@ export default function StateTAVG() {
             .attr('fill', '#000')
             .style('font-size', '20px')
             .style('text-anchor', 'middle')
-            .text('Average Temperature (F)');  
+            .text('Average Daily Wind Speed (mi/hr)');  
     }
     return (
         <div>
-            <p>{loading && "Loading month & precipitation data!"}</p>
-            <h3>State vs. Average Temperature</h3>
-            <p>
-                The hottest state is Guam and the coldest state is the Northwest Territories (Canada).
-                This makes sense, because Guam is a tropical island and Canada is typicallly very cold.
+            <p>{loading && "Loading state & awnd data!"}</p>
+            <p>The highest average temperature is GU, but the average wind speed is pretty low. This aligns with how NM 
+                and CO have high wind speeds but low temperatures. This might mean that the lower the wind speed, the higher the temperature, and vice versa.
             </p>
-            <div id="state_tavg_bar" className="viz"></div>
+            <div id="state_awnd_h_bar" className="viz"></div>
         </div>
     );
 }

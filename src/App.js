@@ -5,6 +5,7 @@ import StateTAVG from "./visualizations/StateTAVG";
 import CountOfStates from "./visualizations/StateCount";
 import AWNDBarplot from "./visualizations/AWNDBarplot";
 import StateAWNDBar from "./visualizations/StateAWND";
+import StateAWNDBarHighlight from "./visualizations/StateAWNDHighlight";
 import MonthSnow from "./visualizations/MonthSnow";
 
 // https://observablehq.com/@jermspeaks/async-await
@@ -13,6 +14,7 @@ const App = () => {
   return (
     <div>
       <h1>Exploratory Data Analysis, Assignment 2, INFO 474 SP 2021</h1>
+      <h2>By: Kayla Lee</h2>
       <p>
         The data set that I decided to use is the “Daily Weather in the U.S., 2017” CSV file. First look at this data, it contains:
       </p>
@@ -56,40 +58,48 @@ const App = () => {
       <ul>
         <li>Line Graph: Elevation vs. Average Temperature
           <ul>
-            <li>Creating this visualization, I had to look up how to create a line graph using d3, and found that there is a d3 graph gallery that provides starter code on how to create a basic line graph. I used this code as a template and was able to create a line graph using the weather data. However, when I first created the line graph the lines seemed to be connected to many different data points, which made the graph completely unreadable and dense. To fix this, I had to figure out how to order the data … had to cut down the amount of data…</li>
+            <li>This graph would help me answer the question of how elevation affects the weather.</li>
+            <li>Creating this visualization, I had to look up how to create a line graph using d3, and found that there is a d3 graph gallery that provides starter code on how to create a basic line graph. I used this code as a template and was able to create a line graph using the weather data. However, when I first created the line graph the lines seemed to be connected to many different data points, which made the graph completely unreadable and dense. To fix this, I had to figure out how to organize my data to display on the graph properly. I decided to use Python to clean up the data and created a new csv file with the manipulated data.</li>
           </ul>
         </li>
         <li>Line Graph: Month vs. Precipitation
           <ul>
+            <li>This graph would help me answer the question of which month it rains the  most.</li>
             <li>Since I already created a line graph for the elevation and average temperature, I was able to use that code and just replace the data with the month and precipitation. The main difference was the date scale since I had to pull out the month from the dates using d3’s timeParse and then used scaleTime to put the months on the x scale.</li>
           </ul>
         </li>
-        <li>Bar Graph: State vs. Average Temperature w/ Highlight on Hottest and Coldest State
+        <li>Bar Graph: State vs. Average Temperature
           <ul>
-            <li>Creating this visualization, I utilized the binning that we did in lecture and also information from the Internet. To show the highlight, I made the hottest and coldest states a darker shade to make it stand out.</li>
+            <li>This graph would help me answer the question of which state is the hottest and coldest.</li>
+            <li>Creating this visualization, I utilized the example bar graph from the d3 gallergy site from the Internet. To show the highlight, I made the hottest and coldest states red to make it stand out.</li>
           </ul>
         </li>
         <li>Bar Graph: Count of States
           <ul>
+            <li>This graph would help me understand the data and why some states might have high or low values due to the amount of data there is for a specific state.</li>
             <li>I used the same method as the state and average temperature bar graph to create this one, except I had to create a new column of data for the count of states.</li>
           </ul>
         </li>
-        <li>Barcode Plot: Average Wind Speed w/ Highlight on Hottest and Coldest State’s Average Wind Speed
+        <li>Barcode Plot: Average Wind Speed 
           <ul>
-            <li>To create this visualization, I used the bar code plot code we did in class as a template to create this visualization. To highlight the hottest and coldest state’s average wind speed, I had to pull out that data and create separate barcode plots for them. I then put them next to the average wind speed plot to highlight and compare them.</li>
+            <li>This plot would help me see the distribution of the average wind speeds and help answer the question of how wind speed affets temperature.</li>
+            <li>To create this visualization, I used the barplot code from the d3 gallery as a template.</li>
           </ul>
         </li>
-        <li>Bar Graph: State vs. Average Wind Speed and Colored by Average Temperature
+        <li>Bar Graph: State vs. Average Wind Speed
           <ul>
-            <li>I used my bar graph code as a template to create the graph, and then had to look up how to color the graphs by average temperature.</li>
+            <li>This graph would help me answer the question of which state has the highest wind speed and how wind speed affects temperature.</li>
+            <li>I used my bar graph code as a template to create the graph.</li>
           </ul>
         </li>
         <li>Dual Line Graph: Month vs. Snowfall and Snow Depth
           <ul>
+            <li>This graph would help me answer the question of how snowfall compares to snow depth for different months.</li>
             <li>Creating this graph, I had to look up how to do this and found starter code from d3’s API.</li>
           </ul>
         </li>
       </ul>
+      <p>For all of my plots, I organized the data in Python and created a new csv file.</p>
 
       <ElevationTAVG />
       <MonthPrecip />
@@ -97,6 +107,7 @@ const App = () => {
       <CountOfStates />
       <AWNDBarplot />
       <StateAWNDBar />
+      <StateAWNDBarHighlight />
       <MonthSnow />
 
       <h2>Main Lessons Learned:</h2>
